@@ -3,14 +3,14 @@
 import Vue from 'vue'
 import App from './gougou.vue'
 import router from '../router/gougou.js'
-import Weui from 'vue-weui'
-import 'weui/dist/style/weui.min.css'
+// import Weui from 'vue-weui'
+// import 'weui/dist/style/weui.min.css'
 import VueHead from 'vue-head'
 import VueResource from 'vue-resource'
 import Common from '../common'
 
 Vue.config.productionTip = false
-Vue.use(Weui)
+// Vue.use(Weui)
 Vue.use(VueHead)
 Vue.use(VueResource)
 Vue.mixin(Common)
