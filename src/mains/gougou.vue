@@ -38,5 +38,6 @@ body {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     background-color: #fff;
     color: rgba(0,0,0,.87);
+    margin: 0;
 }
 </style>
