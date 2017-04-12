@@ -8,7 +8,6 @@
             <x-input title="密 码:" placeholder="请输入密码" novalidate :type="type"  :show-clear="false"  v-model="pwd">
             <x-icon type="eye-disabled" @click="HidePwd" slot="right" v-bind:class="{ hide: eyeDis}"></x-icon>
             <x-icon type="eye"  @click="ShowPwd" slot="right" v-bind:class="{ hide: eye}"></x-icon>
-              <!-- <x-button @click.native="ShowPwd" slot="right" type="primary"  mini></x-button> -->
             </x-input>
         </group>
         <toast v-model="error" width="11em" type="warn">{{ msg }}</toast>
@@ -29,7 +28,7 @@ export default {
   beforeCreate: function () {
     this.$http.get('/login/check').then(response => {
       if (response.body.code === 1) {
-        this.$router.push(response.body.url)
+        this.$router.push('/index')
       }
     })
   },
@@ -58,6 +57,7 @@ export default {
       this.type = 'password'
     },
     Login: function () {
+      this.http_get()
       if (!this.name) {
         this.msg = '请输入账号'
         this.error = true
