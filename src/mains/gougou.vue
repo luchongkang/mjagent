@@ -20,15 +20,16 @@ export default {
       { name: 'x5-fullscreen', content: 'true' },
       { name: 'x5-page-mode', content: 'app' },
       { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=0' }
-    ],
-    link: [
-      { rel: 'stylesheet', href: '//cdn.bootcss.com/material-design-icons/3.0.0/iconfont/material-icons.min.css?v=123' }
     ]
+    // link: [
+    //   { rel: 'stylesheet', href: '//cdn.bootcss.com/material-design-icons/3.0.0/iconfont/material-icons.min.css?v=123' }
+    // ]
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
+@import '~vux/src/styles/reset.less';
 body {
     font-family: Roboto,Lato,sans-serif;
     line-height: 1.5;
