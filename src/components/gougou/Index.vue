@@ -1,15 +1,13 @@
 <template>
-  <div style="height:100%">
-    <div style="header">
-      <x-header :left-options="{backText: ''}" @on-click-more="showMenus = true" :right-options="{showMore: true}">代理后台</x-header>
-    </div>
-    
+  <div>
+      <x-header style="position: fixed;left: 0;top: 0;right: 0;z-index: 100;" :left-options="{backText: ''}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
+      代理后台
+      </x-header>
     <actionsheet :menus="menus" v-model="showMenus" :cancel-text="text" @on-click-menu="menuClick" show-cancel></actionsheet>
     <div class="main">
       <router-view></router-view>
     </div>
-    <div class="botton">
-      <tabbar>
+      <tabbar style="position: fixed;">
         <tabbar-item selected link="/home">
           <x-icon size="30" type="person"   slot="icon"></x-icon>
           <x-icon size="30" type="person" class="menu-icon"  slot="icon" slot="icon-active"></x-icon>
@@ -26,7 +24,6 @@
           <span slot="label">其它</span>
         </tabbar-item>
       </tabbar>
-    </div>
   </div>
 </template>
 
@@ -65,6 +62,10 @@ export default {
 }
 </script>
 <style scoped>
+.main {
+  padding-top: 46px;
+  padding-bottom: 55px;
+}
 .header {
   position: fixed;
 }
