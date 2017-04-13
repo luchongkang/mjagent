@@ -37,7 +37,7 @@ body {
     font-weight: 400;
     width: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    background-color: #fff;
+    background-color: #fbf9fe;
     color: rgba(0,0,0,.87);
     margin: 0;
 }
