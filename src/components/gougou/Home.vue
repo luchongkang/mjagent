@@ -32,9 +32,9 @@
       </div>
     </card>
     <group :title="title[0]">
-      <cell :title="title[1]" is-link link="/scales"></cell>
-      <cell :title="title[2]" is-link></cell>
-      <cell :title="title[3]" is-link></cell>
+      <cell :title="title[1]" is-link link="/scale"></cell>
+      <cell :title="title[2]" is-link link="/charge"></cell>
+      <cell :title="title[3]" is-link link="/sell"></cell>
       <cell :title="title[4]" is-link></cell>
     </group>
     <!-- <flexbox :gutter="0">
@@ -45,9 +45,18 @@
 
 <script>
 import { Blur, Card, Group, Cell } from 'vux'
+import Helper from '@/common/helper.js'
 export default {
   components: {
     Blur, Card, Group, Cell
+  },
+  created () {
+    Helper.$emit('changeTitle', '主页')
+  },
+  methods: {
+    come: function () {
+      this.$emit('header')
+    }
   },
   name: 'home',
   data () {

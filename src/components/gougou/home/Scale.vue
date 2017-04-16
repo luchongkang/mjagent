@@ -2,13 +2,14 @@
   <div class="scale">
     <divider>我的提成</divider>
     <div class="box">
-      <p style="margin-left:1em;">本月收益: {{number}}</p>
+      <p style="margin-left:1em;margin-bottom:1em">本月收益: {{number}}</p>
+      <p style="margin-left:.5em;margin-bottom:1em">下级代理购买</p>
       <table class="tab">
           <thead>
               <tr>
-                  <th>name</th>
-                  <th>type</th>
-                  <th>default</th>
+                  <th>购买金额</th>
+                  <th>提成比例</th>
+                  <th>我的收益</th>
               </tr>
           </thead>
           <tbody>
@@ -19,6 +20,24 @@
               </tr>
           </tbody>
       </table>
+      <p style="margin-left:.5em;">下下级代理购买</p>
+      <table class="tab">
+          <thead>
+              <tr>
+                  <th>购买金额</th>
+                  <th>提成比例</th>
+                  <th>我的收益</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              </tr>
+          </tbody>
+      </table>
+
 
     </div>
   </div>
@@ -61,7 +80,7 @@ table tr {
     border-top: 1px solid #ccc;
 }
 table th {
-    padding: 6px 13px;
+    padding: 16px 23px;
     border: 1px solid #ddd;
     font-weight: 700;
 }

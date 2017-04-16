@@ -5,7 +5,8 @@ import Index from '@/components/gougou/Index'
 import Home from '@/components/gougou/Home'
 import Menu from '@/components/gougou/Menu'
 import Charge from '@/components/gougou/Charge'
-import Scale from '@/components/gougou/Home/Scale'
+import Scale from '@/components/gougou/home/Scale'
+import Sell from '@/components/gougou/home/Sell'
 
 Vue.use(Router)
 
@@ -35,6 +36,9 @@ export default new Router({
         },
         {
           path: '/scale', component: Scale
+        },
+        {
+          path: '/sell', component: Sell
         }
       ]
     }

@@ -1,11 +1,11 @@
 <template>
   <div>
       <x-header style="position: fixed;left: 0;top: 0;right: 0;z-index: 100;" :left-options="{backText: ''}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
-      代理后台
+      {{ headerTitle }}
       </x-header>
     <actionsheet :menus="menus" v-model="showMenus" :cancel-text="text" @on-click-menu="menuClick" show-cancel></actionsheet>
     <div class="main">
-      <router-view></router-view>
+      <router-view ></router-view>
     </div>
       <tabbar style="position: fixed;">
         <tabbar-item selected link="/home">
@@ -29,17 +29,21 @@
 
 <script>
 import { Tabbar, TabbarItem, XHeader, Actionsheet } from 'vux'
+import Helper from '@/common/helper'
 
 export default {
   components: {
     XHeader, Actionsheet, Tabbar, TabbarItem
   },
   created: function () {
-    console.log('index create')
+    Helper.$on('changeTitle', (title) => {
+      this.headerTitle = title
+    })
   },
   data () {
     return {
       text: '取消',
+      headerTitle: '代理后台',
       menus: {
         exit: '安全退出'
       },
