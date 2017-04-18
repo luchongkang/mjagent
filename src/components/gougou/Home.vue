@@ -35,7 +35,7 @@
       <cell :title="title[1]" is-link link="/scale"></cell>
       <cell :title="title[2]" is-link link="/charge"></cell>
       <cell :title="title[3]" is-link link="/sell"></cell>
-      <cell :title="title[4]" is-link></cell>
+      <cell :title="title[4]" is-link link="/chargeUser"></cell>
     </group>
     <!-- <flexbox :gutter="0">
       <flexbox-item v-for="(img, index) in images" :key="index"><img :src="img" style="width:100%" @click="url = img"/></flexbox-item>

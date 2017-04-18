@@ -35,6 +35,12 @@ export default {
   components: {
     XHeader, Actionsheet, Tabbar, TabbarItem
   },
+  beforeCreated () {
+    this.$vux.loading.show({text: 'loading'})
+  },
+  mounted () {
+    this.$vux.loading.hide()
+  },
   created: function () {
     Helper.$on('changeTitle', (title) => {
       this.headerTitle = title

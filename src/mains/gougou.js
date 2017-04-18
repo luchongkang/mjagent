@@ -7,11 +7,13 @@ import router from '../router/gougou.js'
 // import 'weui/dist/style/weui.min.css'
 import VueHead from 'vue-head'
 import VueResource from 'vue-resource'
+import { LoadingPlugin, AlertPlugin } from 'vux'
 import Common from '../common'
 
 Vue.config.productionTip = false
-// Vue.use(Weui)
+Vue.use(AlertPlugin)
 Vue.use(VueHead)
+Vue.use(LoadingPlugin)
 Vue.use(VueResource)
 Vue.mixin(Common)
 

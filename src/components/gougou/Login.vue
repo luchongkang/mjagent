@@ -68,9 +68,13 @@ export default {
         this.error = true
         return false
       }
+      this.$vux.loading.show({
+        text: 'loading'
+      })
       this.$http.post('/login', {username: this.name, password: this.pwd}).then(response => {
+        this.$vux.loading.hide()
         if (response.body.code === 0) {
-          this.$router.push(response.body.url)
+          this.$router.push('/index')
         } else {
           this.msg = response.body.msg
           this.error = true

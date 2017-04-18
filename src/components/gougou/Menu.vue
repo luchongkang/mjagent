@@ -2,8 +2,8 @@
   <div class="home">
     <!-- <router-link to="/index/home">home</router-link> -->
     <group>
-      <cell title="我的下级代理" value="" is-link></cell>
-      <cell title="房卡购买记录" value="" is-link></cell>
+      <cell title="我的下级代理" value="" is-link link="agent"></cell>
+      <cell title="房卡购买记录" value="" is-link link="chargeHistory"></cell>
       <cell title="给用户打分" value="" is-link></cell>
       <cell title="修改密码" value="" is-link></cell>
     </group>
