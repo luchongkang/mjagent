@@ -12,7 +12,10 @@ import CashHistory from '@/components/gougou/home/CashHistory'
 import ChargeUserHistory from '@/components/gougou/home/ChargeUserHistory'
 import ChargeUser from '@/components/gougou/home/ChargeUser'
 import ChargeHistory from '@/components/gougou/home/ChargeHistory'
-import Agent from '@/components/gougou/menu/agent'
+import Agent from '@/components/gougou/menu/Agent'
+import EditAgent from '@/components/gougou/menu/EditAgent'
+import Grade from '@/components/gougou/menu/Grade'
+import UpdatePwd from '@/components/gougou/menu/UpdatePwd'
 
 Vue.use(Router)
 
@@ -63,6 +66,15 @@ export default new Router({
         },
         {
           path: '/chargeHistory', component: ChargeHistory
+        },
+        {
+          path: '/editAgent', component: EditAgent
+        },
+        {
+          path: '/grade', component: Grade
+        },
+        {
+          path: '/updatePwd', component: UpdatePwd
         }
       ]
     }

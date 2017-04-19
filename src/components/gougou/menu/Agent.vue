@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     add: function () {
-      this.$router.push('/add')
+      this.$router.push('/editAgent')
     }
   }
 }

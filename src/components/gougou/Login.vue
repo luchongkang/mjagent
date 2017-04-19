@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <form action="">
-        <h2>Login Form</h2>
+        <h2>代理后台</h2>
         <div>
         <group> 
             <x-input title="账 号:" placeholder="请输入代理账号" v-model="name"></x-input>
@@ -26,11 +26,11 @@ export default {
     Toast, Box, Group, XInput, XButton
   },
   beforeCreate: function () {
-    this.$http.get('/login/check').then(response => {
-      if (response.body.code === 1) {
-        this.$router.push('/index')
-      }
-    })
+    // this.$http.get('/login/check').then(response => {
+    //   if (response.body.code === 1) {
+    //     this.$router.push('/index')
+    //   }
+    // })
   },
   name: 'login',
   data () {
@@ -57,7 +57,6 @@ export default {
       this.type = 'password'
     },
     Login: function () {
-      this.http_get()
       if (!this.name) {
         this.msg = '请输入账号'
         this.error = true
@@ -71,17 +70,18 @@ export default {
       this.$vux.loading.show({
         text: 'loading'
       })
-      this.$http.post('/login', {username: this.name, password: this.pwd}).then(response => {
-        this.$vux.loading.hide()
-        if (response.body.code === 0) {
-          this.$router.push('/index')
-        } else {
-          this.msg = response.body.msg
-          this.error = true
-        }
-      }, response => {
-        console.log(response)
-      })
+      this.$router.push('/index')
+      // this.$http.post('/login', {username: this.name, password: this.pwd}).then(response => {
+      //   this.$vux.loading.hide()
+      //   if (response.body.code === 0) {
+      //     this.$router.push('/index')
+      //   } else {
+      //     this.msg = response.body.msg
+      //     this.error = true
+      //   }
+      // }, response => {
+      //   console.log(response)
+      // })
     }
   },
   head: {

@@ -59,11 +59,12 @@ export default {
   methods: {
     menuClick: function (key) {
       if (key === 'exit') {
-        this.$http.get('/login/exit').then(response => {
-          if (response.body.code === 0) {
-            this.$router.push('/')
-          }
-        })
+        this.$router.push('/')
+        // this.$http.get('/login/exit').then(response => {
+        //   if (response.body.code === 0) {
+        //     this.$router.push('/')
+        //   }
+        // })
       } else if (key === 'change') {
         console.log('pwd')
       }
