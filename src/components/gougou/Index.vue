@@ -1,3 +1,34 @@
+<style scoped>
+.main {
+  padding-top: 46px;
+  padding-bottom: 55px;
+}
+.header {
+  position: fixed;
+}
+.menu-icon {
+  fill: green;
+}
+
+.fade-leave-active,.fade-enter-active{
+  transition-duration: .5s;
+  transition-property: transform;
+  transform: translate3d(100%,0,0);
+}
+/*
+.fade-enter-to{
+  transition-duration: .5s;
+  transition-property: transform;
+  transform: translate3d(-100%,0,0);
+}*/
+/*.fade-enter-to {
+  transition-duration: .5s;
+  transition-property: transform;
+  transform: translate3d(-100%,0,0)
+}*/
+
+
+</style>
 <template>
   <div>
       <x-header style="position: fixed;left: 0;top: 0;right: 0;z-index: 100;" :left-options="{backText: ''}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
@@ -5,7 +36,9 @@
       </x-header>
     <actionsheet :menus="menus" v-model="showMenus" :cancel-text="text" @on-click-menu="menuClick" show-cancel></actionsheet>
     <div class="main">
-      <router-view ></router-view>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
     </div>
       <tabbar style="position: fixed;">
         <tabbar-item selected link="/home">
@@ -72,15 +105,4 @@ export default {
   }
 }
 </script>
-<style scoped>
-.main {
-  padding-top: 46px;
-  padding-bottom: 55px;
-}
-.header {
-  position: fixed;
-}
-.menu-icon {
-  fill: green;
-}
-</style>
+
