@@ -9,25 +9,34 @@
 .menu-icon {
   fill: green;
 }
-
-.fade-leave-active,.fade-enter-active{
-  transition-duration: .5s;
-  transition-property: transform;
-  transform: translate3d(100%,0,0);
+.vux-pop-out-enter-active,
+.vux-pop-out-leave-active,
+.vux-pop-in-enter-active,
+.vux-pop-in-leave-active {
+  will-change: transform;
+  transition: all 500ms;
+  height: 100%;
+  top: 46px;
+  position: absolute;
+  backface-visibility: hidden;
+  perspective: 1000;
 }
-/*
-.fade-enter-to{
-  transition-duration: .5s;
-  transition-property: transform;
-  transform: translate3d(-100%,0,0);
-}*/
-/*.fade-enter-to {
-  transition-duration: .5s;
-  transition-property: transform;
-  transform: translate3d(-100%,0,0)
-}*/
-
-
+.vux-pop-out-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.vux-pop-out-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.vux-pop-in-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.vux-pop-in-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
 </style>
 <template>
   <div>
@@ -36,7 +45,7 @@
       </x-header>
     <actionsheet :menus="menus" v-model="showMenus" :cancel-text="text" @on-click-menu="menuClick" show-cancel></actionsheet>
     <div class="main">
-      <transition name="fade">
+      <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
         <router-view></router-view>
       </transition>
     </div>
@@ -62,6 +71,7 @@
 
 <script>
 import { Tabbar, TabbarItem, XHeader, Actionsheet } from 'vux'
+import { mapState } from 'vuex'
 import Helper from '@/common/helper'
 
 export default {
@@ -70,6 +80,11 @@ export default {
   },
   beforeCreated () {
     this.$vux.loading.show({text: 'loading'})
+  },
+  computed: {
+    ...mapState({
+      direction: state => state.vux.direction
+    })
   },
   mounted () {
     this.$vux.loading.hide()
