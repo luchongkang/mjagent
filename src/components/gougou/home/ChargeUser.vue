@@ -36,15 +36,15 @@ export default {
   },
   methods: {
     charge: function () {
-      this.$vux.loading.show({
-        text: '充值中'
-      })
+      // this.$vux.loading.show({
+      //   text: '充值中'
+      // })
       setTimeout(() => {
-        this.$vux.loading.hide()
-        this.$vux.alert.show({
-          title: '充值成功',
-          content: '已经充值到用户的账户里面了'
-        })
+        // this.$vux.loading.hide()
+        // this.$vux.alert.show({
+        //   title: '充值成功',
+        //   content: '已经充值到用户的账户里面了'
+        // })
       }, 2000)
     }
   }

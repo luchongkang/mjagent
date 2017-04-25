@@ -1,4 +1,4 @@
-<style scoped>
+<style>
 .main {
   padding-top: 46px;
   padding-bottom: 55px;
@@ -16,6 +16,7 @@
   will-change: transform;
   transition: all 500ms;
   height: 100%;
+  width: 100%;
   top: 46px;
   position: absolute;
   backface-visibility: hidden;
@@ -40,6 +41,7 @@
 </style>
 <template>
   <div>
+  <loading v-model="Loading"  text="正在加载"></loading>
       <x-header style="position: fixed;left: 0;top: 0;right: 0;z-index: 100;" :left-options="{backText: ''}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
       {{ headerTitle }}
       </x-header>
@@ -70,24 +72,25 @@
 </template>
 
 <script>
-import { Tabbar, TabbarItem, XHeader, Actionsheet } from 'vux'
+import { Tabbar, TabbarItem, XHeader, Actionsheet, Loading } from 'vux'
 import { mapState } from 'vuex'
 import Helper from '@/common/helper'
 
 export default {
   components: {
-    XHeader, Actionsheet, Tabbar, TabbarItem
+    XHeader, Actionsheet, Tabbar, TabbarItem, Loading
   },
   beforeCreated () {
-    this.$vux.loading.show({text: 'loading'})
+    // this.$vux.loading.show({text: 'loadingdd'})
   },
   computed: {
     ...mapState({
-      direction: state => state.vux.direction
+      direction: state => state.vux.direction,
+      Loading: state => state.vux.isLoading
     })
   },
   mounted () {
-    this.$vux.loading.hide()
+    // this.$vux.loading.hide()
   },
   created: function () {
     Helper.$on('changeTitle', (title) => {
@@ -101,6 +104,7 @@ export default {
       menus: {
         exit: '安全退出'
       },
+      // Loading: false,
       showMenus: false
     }
   },
@@ -113,8 +117,9 @@ export default {
         //     this.$router.push('/')
         //   }
         // })
-      } else if (key === 'change') {
-        console.log('pwd')
+      } else {
+        this.Loading = true
+        console.log('Loading:' + this.Loading)
       }
     }
   }

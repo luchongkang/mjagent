@@ -7,7 +7,7 @@ import Vuex from 'vuex'
 // import 'weui/dist/style/weui.min.css'
 import VueHead from 'vue-head'
 import VueResource from 'vue-resource'
-import { LoadingPlugin, AlertPlugin, ToastPlugin } from 'vux'
+import { LoadingPlugin, AlertPlugin } from 'vux'
 import Common from '../common'
 
 const FastClick = require('fastclick')
@@ -15,7 +15,7 @@ FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 Vue.use(AlertPlugin)
-Vue.use(ToastPlugin)
+// Vue.use(ToastPlugin)
 Vue.use(VueHead)
 Vue.use(LoadingPlugin)
 Vue.use(VueResource)
@@ -48,6 +48,22 @@ store.registerModule('vux', {
   }
 })
 Vue.use(store)
+
+router.beforeEach((to, from, next) => {
+  store.commit('updateLoadingStatus', {isLoading: true})
+  if (to.path === '/charge') {
+    store.commit('updateDirection', {direction: 'reverse'})
+    console.log('to:charge')
+  } else {
+    store.commit('updateDirection', {direction: 'forward'})
+    console.log('to:' + to.path)
+  }
+  // console.log('to:' + to.path + '----from:' + from.path)
+  next()
+})
+router.afterEach((to) => {
+  store.commit('updateLoadingStatus', {isLoading: false})
+})
 /* eslint-disable no-new */
 new Vue({
   store,
