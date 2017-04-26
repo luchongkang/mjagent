@@ -41,8 +41,10 @@
 </style>
 <template>
   <div>
-  <loading v-model="Loading"  text="正在加载"></loading>
-      <x-header style="position: fixed;left: 0;top: 0;right: 0;z-index: 100;" :left-options="{backText: ''}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
+    <div v-transfer-dom>
+      <loading v-model="isLoading"></loading>
+    </div>
+      <x-header @on-click-back="back" style="position: fixed;left: 0;top: 0;right: 0;z-index: 100;" :left-options="{backText: '', preventGoBack: true}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
       {{ headerTitle }}
       </x-header>
     <actionsheet :menus="menus" v-model="showMenus" :cancel-text="text" @on-click-menu="menuClick" show-cancel></actionsheet>
@@ -72,11 +74,14 @@
 </template>
 
 <script>
-import { Tabbar, TabbarItem, XHeader, Actionsheet, Loading } from 'vux'
+import { Tabbar, TabbarItem, XHeader, Actionsheet, Loading, TransferDom } from 'vux'
 import { mapState } from 'vuex'
-import Helper from '@/common/helper'
+// import Helper from '@/common/helper'
 
 export default {
+  directives: {
+    TransferDom
+  },
   components: {
     XHeader, Actionsheet, Tabbar, TabbarItem, Loading
   },
@@ -86,29 +91,27 @@ export default {
   computed: {
     ...mapState({
       direction: state => state.vux.direction,
-      Loading: state => state.vux.isLoading
+      isLoading: state => state.vux.isLoading,
+      headerTitle: state => state.vux.headerTitle
     })
   },
-  mounted () {
-    // this.$vux.loading.hide()
-  },
-  created: function () {
-    Helper.$on('changeTitle', (title) => {
-      this.headerTitle = title
-    })
+  created () {
+    // this.$vux.loading.show({text: 'loadingdd'})
   },
   data () {
     return {
       text: '取消',
-      headerTitle: '代理后台',
       menus: {
         exit: '安全退出'
       },
-      // Loading: false,
       showMenus: false
     }
   },
   methods: {
+    back () {
+      this.$store.commit('updateBackStatus', {back: true})
+      this.$router.back()
+    },
     menuClick: function (key) {
       if (key === 'exit') {
         this.$router.push('/')
@@ -117,9 +120,6 @@ export default {
         //     this.$router.push('/')
         //   }
         // })
-      } else {
-        this.Loading = true
-        console.log('Loading:' + this.Loading)
       }
     }
   }

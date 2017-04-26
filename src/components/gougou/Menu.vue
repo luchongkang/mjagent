@@ -12,13 +12,12 @@
 
 <script>
 import { Group, CellBox, Cell } from 'vux'
-import Helper from '@/common/helper'
 export default {
   components: {
     Group, CellBox, Cell
   },
   created () {
-    Helper.$emit('changeTitle', '其 它')
+    this.$store.commit('updateHeaderTitle', {headerTitle: '其它菜单'})
   },
   name: 'menu',
   data () {

@@ -45,13 +45,13 @@
 
 <script>
 import { Blur, Card, Group, Cell } from 'vux'
-import Helper from '@/common/helper.js'
 export default {
   components: {
     Blur, Card, Group, Cell
   },
   created () {
-    Helper.$emit('changeTitle', '主页')
+    // this.$store.commit('updateLoadingStatus', {isLoading: true})
+    this.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
   },
   methods: {
     come: function () {

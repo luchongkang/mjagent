@@ -4,10 +4,9 @@ import Vue from 'vue'
 import App from './gougou.vue'
 import router from '../router/gougou.js'
 import Vuex from 'vuex'
-// import 'weui/dist/style/weui.min.css'
 import VueHead from 'vue-head'
 import VueResource from 'vue-resource'
-import { LoadingPlugin, AlertPlugin } from 'vux'
+import { LoadingPlugin, AlertPlugin, ToastPlugin } from 'vux'
 import Common from '../common'
 
 const FastClick = require('fastclick')
@@ -15,7 +14,7 @@ FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 Vue.use(AlertPlugin)
-// Vue.use(ToastPlugin)
+Vue.use(ToastPlugin)
 Vue.use(VueHead)
 Vue.use(LoadingPlugin)
 Vue.use(VueResource)
@@ -27,18 +26,22 @@ let store = new Vuex.Store()
 store.registerModule('vux', {
   state: {
     demoScrollTop: 0,
-    isLoading: false,
-    direction: 'forward'
+    isBack: false,
+    direction: 'forward',
+    headerTitle: '代理后台'
   },
   mutations: {
     updateDemoPosition (state, payload) {
       state.demoScrollTop = payload.top
     },
-    updateLoadingStatus (state, payload) {
-      state.isLoading = payload.isLoading
+    updateBackStatus (state, payload) {
+      state.isBack = payload.back
     },
     updateDirection (state, payload) {
       state.direction = payload.direction
+    },
+    updateHeaderTitle (state, payload) {
+      state.headerTitle = payload.headerTitle
     }
   },
   actions: {
@@ -50,19 +53,27 @@ store.registerModule('vux', {
 Vue.use(store)
 
 router.beforeEach((to, from, next) => {
-  store.commit('updateLoadingStatus', {isLoading: true})
-  if (to.path === '/charge') {
-    store.commit('updateDirection', {direction: 'reverse'})
-    console.log('to:charge')
-  } else {
-    store.commit('updateDirection', {direction: 'forward'})
-    console.log('to:' + to.path)
+  const swit = {
+    '/home>/charge': false,
+    '/charge>/home': true,
+    '/home>/menu': false,
+    '/charge>/menu': false,
+    '/menu>/home': true,
+    '/menu>/charge': true
   }
-  // console.log('to:' + to.path + '----from:' + from.path)
+  let isBack = store.state.vux.isBack
+  if (isBack) {
+    store.commit('updateDirection', {direction: 'reverse'})
+    store.commit('updateBackStatus', {back: false})
+  } else if (swit[from.path + '>' + to.path]) {
+    store.commit('updateDirection', {direction: 'reverse'}) // 左
+  } else {
+    store.commit('updateDirection', {direction: 'forward'})// 右
+  }
   next()
 })
 router.afterEach((to) => {
-  store.commit('updateLoadingStatus', {isLoading: false})
+  // store.commit('updateLoadingStatus', {isLoading: false})
 })
 /* eslint-disable no-new */
 new Vue({

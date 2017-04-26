@@ -29,6 +29,9 @@ export default {
     Divider, Checker, CheckerItem, XButton, Box
   },
   name: 'charge',
+  created () {
+    this.$store.commit('updateHeaderTitle', {headerTitle: '充值'})
+  },
   methods: {
     Buy: function () {
       console.log('buy')
