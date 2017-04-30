@@ -4,9 +4,10 @@
     <blur :blur-amount=40 :url="url">
       <p class="center"><img :src="url"></p>
     </blur>
-    <!-- <div class="user-info">
-      <p></p>
-    </div> -->
+    <divider>公告</divider>
+    <marquee>
+      <marquee-item v-for="i in getAffiche" @click.native="alert(i)" :key="i"  class="align-middle">{{i}}</marquee-item>
+    </marquee>
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
         <div class="vux-1px-l vux-1px-r">
@@ -44,18 +45,19 @@
 </template>
 
 <script>
-import { Blur, Card, Group, Cell } from 'vux'
+import { Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider } from 'vux'
 export default {
   components: {
-    Blur, Card, Group, Cell
+    Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
   },
   created () {
     // this.$store.commit('updateLoadingStatus', {isLoading: true})
     this.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
   },
   methods: {
-    come: function () {
-      this.$emit('header')
+    alert (i) {
+      console.log('test:' + i)
+      this.$vux.alert.show({title: '公告', content: i})
     }
   },
   name: 'home',
@@ -71,8 +73,8 @@ export default {
     }
   },
   computed: {
-    getHome: function () {
-      return 'test'
+    getAffiche: function () {
+      return ['我的饭是否多加哦舒服就是发动机似懂非懂分舒服舒服舒服的撒发的是双方家', '公告2']
     }
   }
 }
@@ -81,6 +83,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 @import '~vux/src/styles/1px.less';
+.align-middle {
+  text-align: center;
+}
 .card-demo-flex {
   display: flex;
 }
