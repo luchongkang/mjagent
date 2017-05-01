@@ -1,10 +1,11 @@
-<style>
+<style lang="less">
 .main {
   padding-top: 46px;
   padding-bottom: 55px;
-}
-.header {
-  position: fixed;
+  // @media screen and (max-width:320px) {
+    max-height: 450px;
+    overflow: auto;
+  // }
 }
 .menu-icon {
   fill: green;
@@ -38,22 +39,26 @@
   opacity: 0;
   transform: translate3d(-100%, 0, 0);
 }
+.router-view {
+  width: 100%;
+  top: 46px;
+}
 </style>
 <template>
   <div>
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
     </div>
-      <x-header @on-click-back="back" style="position: fixed;left: 0;top: 0;right: 0;z-index: 100;" :left-options="{backText: '', preventGoBack: true}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
+      <x-header @on-click-back="back" style="width:100%;position:absolute;left:0;top:0;z-index:100;" :left-options="{backText: '', preventGoBack: true}" @on-click-more="showMenus = true" :right-options="{showMore: true}">
       {{ headerTitle }}
       </x-header>
     <actionsheet :menus="menus" v-model="showMenus" :cancel-text="text" @on-click-menu="menuClick" show-cancel></actionsheet>
     <div class="main">
       <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
-        <router-view></router-view>
+        <router-view class="router-view"></router-view>
       </transition>
     </div>
-      <tabbar style="position: fixed;">
+      <tabbar class="vux-demo-tabbar">
         <tabbar-item selected link="/home">
           <x-icon size="30" type="person"   slot="icon"></x-icon>
           <x-icon size="30" type="person" class="menu-icon"  slot="icon" slot="icon-active"></x-icon>
@@ -115,11 +120,11 @@ export default {
     menuClick: function (key) {
       if (key === 'exit') {
         this.$router.push('/')
-        // this.$http.get('/login/exit').then(response => {
-        //   if (response.body.code === 0) {
-        //     this.$router.push('/')
-        //   }
-        // })
+        this.$http.get('/login/exit').then(response => {
+          if (response.body.code === 0) {
+            this.$router.push('/')
+          }
+        })
       }
     }
   }

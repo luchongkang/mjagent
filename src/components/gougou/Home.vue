@@ -1,12 +1,12 @@
 <template>
   <div class="home">
-    <!-- <router-link to="/index/home">home</router-link> -->
+    <!-- <router-link to="/index/home">home</router-link> 
     <blur :blur-amount=40 :url="url">
       <p class="center"><img :src="url"></p>
-    </blur>
+    </blur> -->
     <divider>公告</divider>
     <marquee>
-      <marquee-item v-for="i in getAffiche" @click.native="alert(i)" :key="i"  class="align-middle">{{i}}</marquee-item>
+      <marquee-item v-for="i in affiche" @click.native="alert(i.content)" :key="i.title"  class="align-middle">{{i.title}}</marquee-item>
     </marquee>
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
@@ -51,13 +51,24 @@ export default {
     Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
   },
   created () {
-    // this.$store.commit('updateLoadingStatus', {isLoading: true})
+    this.$vux.loading.show({text: '加载中'})
     this.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
+  },
+  mounted () {
+    this.init()
   },
   methods: {
     alert (i) {
-      console.log('test:' + i)
       this.$vux.alert.show({title: '公告', content: i})
+    },
+    init () {
+      this.$http.get('/home').then((response) => {
+        this.$vux.loading.hide()
+      }, error => {
+        console.log(error)
+        this.$vux.loading.hide()
+        this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
+      })
     }
   },
   name: 'home',
@@ -69,13 +80,12 @@ export default {
         'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
       ],
       url: 'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',
-      title: ['房卡管理', '我的提成', '购买房卡', '卖卡给玩家', '给玩家充房卡']
+      title: ['房卡管理', '我的提成', '购买房卡', '卖卡给玩家', '给玩家充房卡'],
+      affiche: [{title: '公告1', content: '内容1'}]
     }
   },
   computed: {
-    getAffiche: function () {
-      return ['我的饭是否多加哦舒服就是发动机似懂非懂分舒服舒服舒服的撒发的是双方家', '公告2']
-    }
+
   }
 }
 </script>

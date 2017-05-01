@@ -11,8 +11,6 @@
             {{val.desc}}
         </checker-item>
       </checker>
-      <br>
-      <br>
     </div>
     <div class="line"></div>
     <div style="margin:10px">应付金额: {{chose.money}} 元</div>

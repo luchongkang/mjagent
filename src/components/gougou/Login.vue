@@ -26,11 +26,13 @@ export default {
     Toast, Box, Group, XInput, XButton
   },
   beforeCreate: function () {
-    // this.$http.get('/login/check').then(response => {
-    //   if (response.body.code === 1) {
-    //     this.$router.push('/index')
-    //   }
-    // })
+    this.$http.get('/login/check').then(response => {
+      if (response.body.code === 1) {
+        this.$router.push('/index')
+      } else {
+        this.token = response.body.token
+      }
+    })
   },
   name: 'login',
   data () {
@@ -42,7 +44,8 @@ export default {
       eyeDis: true,
       type: 'password',
       error: false,
-      msg: '用户名或密码错误'
+      msg: '用户名或密码错误',
+      token: ''
     }
   },
   methods: {
@@ -67,21 +70,22 @@ export default {
         this.error = true
         return false
       }
-      // this.$vux.loading.show({
-      //   text: 'loading'
-      // })
-      this.$router.push('/index')
-      // this.$http.post('/login', {username: this.name, password: this.pwd}).then(response => {
-      //   this.$vux.loading.hide()
-      //   if (response.body.code === 0) {
-      //     this.$router.push('/index')
-      //   } else {
-      //     this.msg = response.body.msg
-      //     this.error = true
-      //   }
-      // }, response => {
-      //   console.log(response)
-      // })
+      this.$vux.loading.show({
+        text: '登陆中...'
+      })
+      let header = {headers: {'X-CSRF-TOKEN': this.token}}
+      this.$http.post('/login', {username: this.name, password: this.pwd}, header).then(response => {
+        this.$vux.loading.hide()
+        if (response.body.code === 0) {
+          this.$router.push('/index')
+        } else {
+          this.msg = response.body.msg
+          this.error = true
+        }
+      }, response => {
+        this.$vux.loading.hide()
+        this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
+      })
     }
   },
   head: {

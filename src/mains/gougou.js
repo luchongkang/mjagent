@@ -75,6 +75,18 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to) => {
   // store.commit('updateLoadingStatus', {isLoading: false})
 })
+Vue.http.interceptors.push((request, next) => {
+  if (request.url === '/login') {
+    next()
+  } else {
+    next((response) => {
+      // 预处理 response
+      if (response.body.code === -1) {
+        router.push('/login')
+      }
+    })
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   store,
