@@ -6,27 +6,27 @@
     </blur> -->
     <divider>公告</divider>
     <marquee>
-      <marquee-item v-for="i in affiche" @click.native="alert(i.content)" :key="i.title"  class="align-middle">{{i.title}}</marquee-item>
+      <marquee-item v-for="i in data.affiche" @click.native="alert(i.content)" :key="i.title"  class="align-middle">{{i.title}}</marquee-item>
     </marquee>
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
         <div class="vux-1px-l vux-1px-r">
-          <span>1130</span>
+          <span>{{ data.card_num }}</span>
           <br/>
           剩余房卡
         </div>
         <div class="vux-1px-r">
-          <span>超级管理员</span>
+          <span>{{ data.role }}</span>
           <br/>
           身份
         </div>
         <div class="vux-1px-r">
-          <span>admin</span>
+          <span>{{ data.name }}</span>
           <br/>
           用户名
         </div>
         <div>
-          <span>管理员</span>
+          <span>{{ data.nick }}</span>
           <br/>
           昵称
         </div>
@@ -51,11 +51,11 @@ export default {
     Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
   },
   created () {
-    this.$vux.loading.show({text: '加载中'})
     this.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
-  },
-  mounted () {
     this.init()
+  },
+  beforeCreate () {
+    // this.init()
   },
   methods: {
     alert (i) {
@@ -63,7 +63,7 @@ export default {
     },
     init () {
       this.$http.get('/home').then((response) => {
-        this.$vux.loading.hide()
+        this.data = response.body
       }, error => {
         console.log(error)
         this.$vux.loading.hide()
@@ -79,13 +79,22 @@ export default {
         'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg',
         'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
       ],
+      data: [],
       url: 'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',
       title: ['房卡管理', '我的提成', '购买房卡', '卖卡给玩家', '给玩家充房卡'],
-      affiche: [{title: '公告1', content: '内容1'}]
+      affiche: [{title: '新代理后台内测', content: '新代理后台内测'}]
     }
   },
   computed: {
-
+    getData () {
+      this.$http.get('/home').then((response) => {
+        this.data = response.body
+      }, error => {
+        console.log(error)
+        this.$vux.loading.hide()
+        this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
+      })
+    }
   }
 }
 </script>
