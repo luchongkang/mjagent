@@ -17,9 +17,13 @@ export default {
     Group, CellBox, Cell
   },
   created () {
-    this.$store.commit('updateHeaderTitle', {headerTitle: '其它菜单'})
+    // this.$store.commit('updateHeaderTitle', {headerTitle: '其它菜单'})
   },
-  name: 'menu',
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '其它菜单'})
+    })
+  },
   data () {
     return {
       msg: 'this is Menu Page'

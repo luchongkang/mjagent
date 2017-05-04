@@ -28,7 +28,12 @@ export default {
   },
   name: 'charge',
   created () {
-    this.$store.commit('updateHeaderTitle', {headerTitle: '充值'})
+    // this.$store.commit('updateHeaderTitle', {headerTitle: '充值'})
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '充值'})
+    })
   },
   methods: {
     Buy: function () {

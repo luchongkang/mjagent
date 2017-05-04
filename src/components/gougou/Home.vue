@@ -51,11 +51,13 @@ export default {
     Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
   },
   created () {
-    this.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
-    this.init()
-  },
-  beforeCreate () {
     // this.init()
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.init()
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
+    })
   },
   methods: {
     alert (i) {

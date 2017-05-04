@@ -55,7 +55,9 @@
     <actionsheet :menus="menus" v-model="showMenus" :cancel-text="text" @on-click-menu="menuClick" show-cancel></actionsheet>
     <div class="main">
       <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
+        <keep-alive>
         <router-view class="router-view"></router-view>
+        </keep-alive>
       </transition>
     </div>
       <tabbar class="vux-demo-tabbar">
@@ -89,9 +91,6 @@ export default {
   },
   components: {
     XHeader, Actionsheet, Tabbar, TabbarItem, Loading
-  },
-  beforeCreated () {
-    // this.$vux.loading.show({text: 'loadingdd'})
   },
   computed: {
     ...mapState({
