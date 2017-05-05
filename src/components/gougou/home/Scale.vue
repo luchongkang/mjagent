@@ -56,6 +56,11 @@ export default {
       show: true
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '我的提成'})
+    })
+  },
   computed: {
     getHome: function () {
       return this.msg
@@ -72,7 +77,7 @@ table {
     overflow: auto;
     margin: 1em 3em;
     margin-bottom: 16px;
-        border-spacing: 0;
+    border-spacing: 0;
     border-collapse: collapse;
 }
 table tr {

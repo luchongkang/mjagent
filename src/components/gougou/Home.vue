@@ -1,9 +1,5 @@
 <template>
   <div class="home">
-    <!-- <router-link to="/index/home">home</router-link> 
-    <blur :blur-amount=40 :url="url">
-      <p class="center"><img :src="url"></p>
-    </blur> -->
     <divider>公告</divider>
     <marquee>
       <marquee-item v-for="i in data.affiche" @click.native="alert(i.content)" :key="i.title"  class="align-middle">{{i.title}}</marquee-item>
@@ -11,14 +7,14 @@
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
         <div class="vux-1px-l vux-1px-r">
-          <span>{{ data.card_num }}</span>
+          <span>{{ data.id }}</span>
           <br/>
-          剩余房卡
+          代理ID
         </div>
         <div class="vux-1px-r">
-          <span>{{ data.role }}</span>
+          <span>{{ data.realname }}</span>
           <br/>
-          身份
+          姓名
         </div>
         <div class="vux-1px-r">
           <span>{{ data.name }}</span>
@@ -32,15 +28,12 @@
         </div>
       </div>
     </card>
-    <group :title="title[0]">
-      <cell :title="title[1]" is-link link="/scale"></cell>
-      <cell :title="title[2]" is-link link="/charge"></cell>
-      <cell :title="title[3]" is-link link="/sell"></cell>
-      <cell :title="title[4]" is-link link="/chargeUser"></cell>
+    <group title="管理">
+      <cell title="提成" is-link link="/scale"></cell>
+      <cell title="下级代理" is-link link="/agent"></cell>
+      <cell title="邀请码" is-link link="/sell"></cell>
+      <cell title="更改密码" is-link link="/updatePwd"></cell>
     </group>
-    <!-- <flexbox :gutter="0">
-      <flexbox-item v-for="(img, index) in images" :key="index"><img :src="img" style="width:100%" @click="url = img"/></flexbox-item>
-    </flexbox> -->
   </div>
 </template>
 
@@ -49,9 +42,6 @@ import { Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider } from 'vux'
 export default {
   components: {
     Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
-  },
-  created () {
-    // this.init()
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
@@ -76,15 +66,7 @@ export default {
   name: 'home',
   data () {
     return {
-      images: [
-        'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',
-        'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg',
-        'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-      ],
-      data: [],
-      url: 'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',
-      title: ['房卡管理', '我的提成', '购买房卡', '卖卡给玩家', '给玩家充房卡'],
-      affiche: [{title: '新代理后台内测', content: '新代理后台内测'}]
+      data: []
     }
   },
   computed: {

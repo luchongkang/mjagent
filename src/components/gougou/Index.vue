@@ -60,7 +60,7 @@
         </keep-alive>
       </transition>
     </div>
-      <tabbar class="vux-demo-tabbar">
+      <!-- <tabbar class="vux-demo-tabbar">
         <tabbar-item selected link="/home">
           <x-icon size="30" type="person"   slot="icon"></x-icon>
           <x-icon size="30" type="person" class="menu-icon"  slot="icon" slot="icon-active"></x-icon>
@@ -76,7 +76,7 @@
           <x-icon size="30" type="navicon" class="menu-icon" slot="icon" slot="icon" slot="icon-active"></x-icon>
           <span slot="label">其它</span>
         </tabbar-item>
-      </tabbar>
+      </tabbar> -->
   </div>
 </template>
 

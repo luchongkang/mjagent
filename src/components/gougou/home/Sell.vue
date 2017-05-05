@@ -5,7 +5,7 @@
       <selector title="房卡价格" :options="list" v-model="price"></selector>
     </group>
     <Box gap="10px 10px">
-      <x-button id="copyBtn" data-clipboard-target=".linkUrl"  type="primary" action-type="button">复制购买链接并发给玩家</x-button>
+      <x-button id="copyBtn" data-clipboard-target=".linkUrl"  type="primary" action-type="button">复制充值码</x-button>
     </Box>
     <input class="linkUrl" v-model="linkUrl" readonly="readonly" style="width:100%">
     <group>
@@ -37,9 +37,7 @@
 
 <script>
 import { XButton, Group, Selector, Box, Cell, Divider, Panel, Toast } from 'vux'
-import Helper from '@/common/helper'
 import Copy from 'clipboard'
-
 export default {
   components: {
     XButton, Group, Selector, Box, Cell, Divider, Panel, Toast
@@ -54,7 +52,11 @@ export default {
     copy.on('error', function () {
       that.error = true
     })
-    Helper.$emit('changeTitle', '卖房卡给玩家')
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '邀请码'})
+    })
   },
   data () {
     return {
@@ -64,7 +66,7 @@ export default {
       show: false,
       error: false,
       warn: false,
-      linkUrl: 'helll',
+      linkUrl: '',
       lists: [{
         title: '提现说明',
         desc: '1.收入满100元可提现  2.今天的收入明天可申请提现'
