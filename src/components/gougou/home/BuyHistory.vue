@@ -1,29 +1,46 @@
 <template>
   <div class="scale">
-    <divider>暂无相关记录</divider>
+    <divider v-bind:class="{hide: !hide}">暂无相关记录</divider>
+    <panel v-bind:class="{hide:hide}" header="购买记录列表" @on-click-footer="getMore" :footer="footer" :list="list" type="2"></panel>
   </div>
 </template>
 
 <script>
-import { Divider } from 'vux'
-import Helper from '@/common/helper'
+import { Divider, Panel } from 'vux'
 export default {
   components: {
-    Divider
+    Divider, Panel
   },
   created () {
-    Helper.$emit('changeTitle', '玩家购买记录')
+    this.init()
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '玩家购买记录'})
+    })
   },
   name: 'scales',
   data () {
     return {
-      number: 0,
-      show: true
+      hide: false,
+      list: [],
+      footer: {
+        title: '查看更多'
+      }
     }
   },
-  computed: {
-    getHome: function () {
-      return this.msg
+  methods: {
+    init () {
+      this.$http.get('/home/charge-list').then((response) => {
+        if (response.body.data.length === 0) {
+          this.hide = true
+        } else {
+          this.list = response.body.data
+        }
+      })
+    },
+    getMore () {
+      this.$vux.toast.show({text: '没有更多了'})
     }
   }
 }
@@ -31,5 +48,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.hide {
+  display: none;
+}
 </style>

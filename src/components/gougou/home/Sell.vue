@@ -1,23 +1,15 @@
 <template>
   <div class="sell">
-    <p>当前剩余房卡 {{ number }} 张</p>
-     <group :title="'当前售价 ( 点击修改价格 )'">
-      <selector title="房卡价格" :options="list" v-model="price"></selector>
-    </group>
+    <!-- <p>当前剩余房卡 {{ number }} 张</p> -->
     <Box gap="10px 10px">
-      <x-button id="copyBtn" data-clipboard-target=".linkUrl"  type="primary" action-type="button">复制充值码</x-button>
+      <x-button id="copyBtn" data-clipboard-target=".code"  type="primary" action-type="button">复制充值码</x-button>
     </Box>
-    <input class="linkUrl" v-model="linkUrl" readonly="readonly" style="width:100%">
+    <input class="code" v-model="code" readonly="readonly" style="width:100%;text-align:center">
     <group>
       <cell title="查看玩家购买记录" is-link link="/buyHistory"></cell>
     </group>
     <divider>提 现</divider>
      <group>
-      <cell title="卖房卡总收入">
-        <div slot="value">
-          <span style="color: green">{{ total}}</span>
-        </div>
-      </cell>
       <cell title="当前可提现收入">
         <div slot="value">
           <span style="color: green">{{ total}}</span>
@@ -31,7 +23,7 @@
     <panel header=""  :list="lists" type="2"></panel>
     <toast v-model="show" text="复制成功"></toast>
     <toast v-model="error" type="warn" text="复制失败"></toast>
-    <toast v-model="warn" type="warn" width="11em" text="不满足体现条件"></toast>
+    <toast v-model="warn" type="warn" width="11em" text="不满足提现条件"></toast>
   </div>
 </template>
 
@@ -52,6 +44,7 @@ export default {
     copy.on('error', function () {
       that.error = true
     })
+    this.init()
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
@@ -66,7 +59,7 @@ export default {
       show: false,
       error: false,
       warn: false,
-      linkUrl: '',
+      code: '',
       lists: [{
         title: '提现说明',
         desc: '1.收入满100元可提现  2.今天的收入明天可申请提现'
@@ -77,6 +70,14 @@ export default {
   methods: {
     cash () {
       this.warn = true
+    },
+    init () {
+      this.$http.get('/home/code').then(response => {
+        this.code = response.body.code
+      }, error => {
+        console.log(error)
+        this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
+      })
     }
   },
   computed: {
