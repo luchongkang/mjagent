@@ -54,12 +54,9 @@ export default {
       this.$vux.alert.show({title: '公告', content: i})
     },
     init () {
-      this.$http.get('/home').then((response) => {
-        this.data = response.body
-      }, error => {
-        console.log(error)
-        this.$vux.loading.hide()
-        this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
+      this.http_get('/home').then(res => {
+        if (!res) return
+        this.data = res.data
       })
     }
   },

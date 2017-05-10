@@ -13,13 +13,14 @@
 
 <script>
 import { Box, XButton, Group, XInput } from 'vux'
-import Helper from '@/common/helper'
 export default {
   components: {
     Box, XButton, Group, XInput
   },
-  created () {
-    Helper.$emit('changeTitle', '我的下级代理')
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '更改密码'})
+    })
   },
   name: 'scales',
   data () {
@@ -32,9 +33,24 @@ export default {
   methods: {
     update: function () {
       if (this.pwd.length < 6 || this.newpwd.length < 6 || this.repwd.length < 6) {
-        return this.$vux.toast.show({text: '密码不能小于6位', type: 'warn', width: '9em'})
+        this.$vux.toast.show({text: '密码不能小于6位', type: 'warn', width: '9em'})
+        return false
       }
-      this.$vux.toast.show({text: '修改成功'})
+      if (this.newpwd !== this.repwd) {
+        return this.$vux.toast.show({text: '两次输入密码不一致', type: 'warn', width: '9em'})
+      }
+      let params = 'pwd=' + this.pwd + '&newpwd=' + this.newpwd
+      this.$http.get('/home/update-pwd?' + params).then(response => {
+        let data = response.body
+        if (data.code === 1) {
+          this.$vux.toast.show({text: '修改成功'})
+        } else {
+          this.$vux.toast.show({text: data.msg, type: 'warn', width: '9em'})
+        }
+      }, error => {
+        console.log(error)
+        this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
+      })
     }
   }
 }

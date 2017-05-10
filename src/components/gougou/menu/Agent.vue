@@ -1,21 +1,24 @@
 <template>
   <div>
-    <p>下级代理</p>
     <Box gap="10px 10px">
       <x-button type="primary" action-type="button" @click.native="add">添加下级代理</x-button>
     </Box>
-    <p>我的下级代理  {{ number }} 人</p>
+    <p>我的下级代理  0 人</p>
      <table class="tab">
           <thead>
               <tr>
-                  <th>昵称</th>
+                  <th>昵 称</th>
                   <th>用户名</th>
-                  <th>初始密码</th>
+                  <th>状 态</th>
                   <th>开通时间</th>
               </tr>
           </thead>
           <tbody>
-              <tr>
+              <tr v-for="i in list">
+                <td>{{ i.nick }}</td>
+                <td>{{ i.un }}</td>
+                <td>{{ i.status }}</td>
+                <td>{{ i.time }}</td>
               </tr>
           </tbody>
       </table>
@@ -24,24 +27,28 @@
 
 <script>
 import { Box, XButton } from 'vux'
-import Helper from '@/common/helper'
 export default {
   components: {
     Box, XButton
   },
-  created () {
-    Helper.$emit('changeTitle', '我的下级代理')
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '下级代理'})
+      vm.init()
+    })
   },
   name: 'scales',
   data () {
     return {
-      number: 0,
-      show: true
+      list: [{nick: 'nick', un: 'un', status: '正常', time: '2017-07-09'}]
     }
   },
   methods: {
     add: function () {
       this.$router.push('/editAgent')
+    },
+    init () {
+      // df
     }
   }
 }
@@ -64,6 +71,11 @@ table {
 table tr {
     background-color: #fff;
     border-top: 1px solid #ccc;
+}
+table td {
+  padding: 10px 5px;
+   border: 1px solid #ccc;
+   text-align: center;
 }
 table th {
     padding: 10px 5px;
