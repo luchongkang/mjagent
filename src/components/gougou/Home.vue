@@ -43,9 +43,17 @@ export default {
   components: {
     Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
   },
+  created () {
+    console.log('created')
+    if (this.check_login() === true) {
+      console.log('login++++')
+      this.init()
+    }
+  },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
-      vm.init()
+      console.log('routeEnter')
+      vm.check_login()
       vm.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
     })
   },
@@ -54,6 +62,7 @@ export default {
       this.$vux.alert.show({title: '公告', content: i})
     },
     init () {
+      console.log('init:' + this.check_login())
       this.http_get('/home').then(res => {
         if (!res) return
         this.data = res.data
@@ -64,17 +73,6 @@ export default {
   data () {
     return {
       data: []
-    }
-  },
-  computed: {
-    getData () {
-      this.$http.get('/home').then((response) => {
-        this.data = response.body
-      }, error => {
-        console.log(error)
-        this.$vux.loading.hide()
-        this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
-      })
     }
   }
 }

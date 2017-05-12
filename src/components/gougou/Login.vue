@@ -77,6 +77,7 @@ export default {
       this.$http.post('/login', {username: this.name, password: this.pwd}, header).then(response => {
         this.$vux.loading.hide()
         if (response.body.code === 0) {
+          window.sessionStorage.setItem('isLogin', true)
           this.$router.push('/index')
         } else {
           this.msg = response.body.msg

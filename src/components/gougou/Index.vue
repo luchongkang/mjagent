@@ -121,6 +121,7 @@ export default {
         this.$router.push('/')
         this.$http.get('/login/exit').then(response => {
           if (response.body.code === 0) {
+            window.sessionStorage.setItem('isLogin', false)
             this.$router.push('/')
           }
         })

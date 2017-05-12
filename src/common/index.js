@@ -1,5 +1,16 @@
 export default {
   methods: {
+    check_login () {
+      // 检验是否已经登录
+      let login = window.sessionStorage.getItem('isLogin')
+      console.log('check_login+++:' + login)
+      if (!login) {
+        console.log('check_login======')
+        this.$router.push('/login')
+      }
+      console.log('check_login-----')
+      return login
+    },
     http_get: function (url) {
       this.$vux.loading.show({ text: 'loading' })
       return this.$http.get(url).then(response => {
