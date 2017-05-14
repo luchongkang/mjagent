@@ -32,10 +32,12 @@ export default {
   methods: {
     init () {
       this.$http.get('/home/charge-list').then((response) => {
+        console.log(response.body)
         if (response.body.data.length === 0) {
           this.hide = true
         } else {
           this.list = response.body.data
+          console.log(response.body)
         }
       })
     },

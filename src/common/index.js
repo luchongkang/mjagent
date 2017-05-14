@@ -2,13 +2,11 @@ export default {
   methods: {
     check_login () {
       // 检验是否已经登录
-      let login = window.sessionStorage.getItem('isLogin')
-      console.log('check_login+++:' + login)
+      let login = Boolean(window.sessionStorage.getItem('isLogin'))
       if (!login) {
-        console.log('check_login======')
         this.$router.push('/login')
+        console.log('3')
       }
-      console.log('check_login-----')
       return login
     },
     http_get: function (url) {

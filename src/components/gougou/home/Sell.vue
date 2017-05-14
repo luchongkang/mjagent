@@ -73,7 +73,7 @@ export default {
     },
     init () {
       this.$http.get('/home/code').then(response => {
-        this.code = response.body.code
+        this.code = response.body.data.code
       }, error => {
         console.log(error)
         this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})

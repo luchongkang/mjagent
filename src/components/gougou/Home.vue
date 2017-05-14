@@ -44,15 +44,12 @@ export default {
     Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
   },
   created () {
-    console.log('created')
-    if (this.check_login() === true) {
-      console.log('login++++')
+    if (this.check_login()) {
       this.init()
     }
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
-      console.log('routeEnter')
       vm.check_login()
       vm.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
     })
@@ -62,7 +59,6 @@ export default {
       this.$vux.alert.show({title: '公告', content: i})
     },
     init () {
-      console.log('init:' + this.check_login())
       this.http_get('/home').then(res => {
         if (!res) return
         this.data = res.data
