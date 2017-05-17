@@ -5,7 +5,6 @@ export default {
       let login = Boolean(window.sessionStorage.getItem('isLogin'))
       if (!login) {
         this.$router.push('/login')
-        console.log('3')
       }
       return login
     },

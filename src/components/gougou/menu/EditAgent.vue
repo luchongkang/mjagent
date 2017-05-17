@@ -50,7 +50,7 @@ export default {
         name: this.name
       }
       this.http_post('/agent/save', params).then(res => {
-        if (res.code === 1) {
+        if (res.code === 0) {
           this.$vux.toast.show({ text: '添加成功' })
           this.un = ''
           this.pwd = ''

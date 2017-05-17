@@ -40,7 +40,7 @@ export default {
   name: 'scales',
   data () {
     return {
-      list: [{nick: 'nick', un: 'un', status: '正常', time: '2017-07-09'}]
+      list: []
     }
   },
   methods: {
@@ -48,7 +48,9 @@ export default {
       this.$router.push('/editAgent')
     },
     init () {
-      // df
+      this.http_get('/agent/list').then(res => {
+        this.list = res.data.list
+      })
     }
   }
 }
