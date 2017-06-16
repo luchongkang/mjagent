@@ -33,6 +33,8 @@
       <cell title="下级代理" is-link link="/agent"></cell>
       <cell title="邀请码" is-link link="/sell"></cell>
       <cell title="更改密码" is-link link="/updatePwd"></cell>
+      <cell title="我邀请的人" is-link link="/inviter"></cell>
+      <cell title="我的联系方式" is-link link="/contact"></cell>
     </group>
   </div>
 </template>

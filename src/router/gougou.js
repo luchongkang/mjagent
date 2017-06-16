@@ -16,6 +16,8 @@ import Agent from '@/components/gougou/menu/Agent'
 import EditAgent from '@/components/gougou/menu/EditAgent'
 import Grade from '@/components/gougou/menu/Grade'
 import UpdatePwd from '@/components/gougou/menu/UpdatePwd'
+import Inviter from '@/components/gougou/menu/Inviter'
+import Contact from '@/components/gougou/menu/Contact'
 
 Vue.use(Router)
 
@@ -34,6 +36,12 @@ export default new Router({
       component: Index,
       redirect: '/home',
       children: [
+        {
+          path: '/inviter', component: Inviter
+        },
+        {
+          path: '/contact', component: Contact
+        },
         {
           path: '/home/', component: Home
         },

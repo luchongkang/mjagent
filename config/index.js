@@ -48,6 +48,13 @@ module.exports = {
         pathRewrite: {
             '^/agent': '/agent'
         }
+      },
+      '/user': {
+        target: 'http://demo',
+        changeOrigin: true,
+        pathRewrite: {
+            '^/user': '/user'
+        }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

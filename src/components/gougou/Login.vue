@@ -28,6 +28,7 @@ export default {
   beforeCreate: function () {
     this.$http.get('/login/check').then(response => {
       if (response.body.code === 1) {
+        window.sessionStorage.setItem('isLogin', true)
         this.$router.push('/index')
       } else {
         this.token = response.body.token
