@@ -79,7 +79,9 @@ export default {
         this.$vux.loading.hide()
         if (response.body.code === 0) {
           window.sessionStorage.setItem('isLogin', true)
-          this.$router.push('/index')
+          this.$router.push(response.body.url)
+        } else if (response.body.code === 2) {
+          this.$router.push(response.body.url + '/' + this.name)
         } else {
           this.msg = response.body.msg
           this.error = true

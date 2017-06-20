@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/gougou/Login'
 import Index from '@/components/gougou/Index'
+import Check from '@/components/gougou/Check'
 import Home from '@/components/gougou/Home'
 import Menu from '@/components/gougou/Menu'
 import Charge from '@/components/gougou/Charge'
@@ -30,6 +31,10 @@ export default new Router({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/check/:mobile',
+      component: Check
     },
     {
       path: '/index',
