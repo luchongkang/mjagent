@@ -81,7 +81,7 @@ export default {
           window.sessionStorage.setItem('isLogin', true)
           this.$router.push(response.body.url)
         } else if (response.body.code === 2) {
-          this.$router.push(response.body.url + '/' + this.name)
+          window.location.href = response.body.url
         } else {
           this.msg = response.body.msg
           this.error = true

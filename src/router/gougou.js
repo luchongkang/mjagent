@@ -33,7 +33,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/check/:mobile',
+      path: '/check/:mobile/:openid',
       component: Check
     },
     {

@@ -74,6 +74,7 @@ export default {
       return false
     }
     this.mobile = this.$route.params.mobile
+    this.openid = this.$route.params.openid
     this.$http.get('/login/check').then(response => {
       if (response.body.code === 1) {
         window.sessionStorage.setItem('isLogin', true)
@@ -89,6 +90,7 @@ export default {
       time1: 15,
       token: '',
       code: '',
+      openid: '',
       mobile: ''
     }
   },
@@ -125,7 +127,7 @@ export default {
         return false
       }
       let header = {headers: {'X-CSRF-TOKEN': this.token}}
-      this.$http.post('/login/checkcode', {code: this.code, mobile: this.mobile}, header).then(response => {
+      this.$http.post('/login/checkcode', {code: this.code, mobile: this.mobile, openid: this.openid}, header).then(response => {
         this.$vux.loading.hide()
         if (response.body.code === 0) {
           this.$router.push(response.body.url)
