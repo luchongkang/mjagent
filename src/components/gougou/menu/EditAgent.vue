@@ -1,7 +1,7 @@
 <template>
   <div>
-    <group title="用户名必须由6-12位字母和数字组成">
-      <x-input v-model="un" title="用户名:" required placeholder-align="right" :min="6" :max="12" placeholder="登录账户"></x-input>
+    <group title="手机号码做为登录账户，首次登录验证手机号码">
+      <x-input v-model="un" title="手机号:" required placeholder-align="right" is-type="china-mobile" keyboard="number" placeholder="登录账户"></x-input>
       <x-input v-model="pwd" title="密码 :" required placeholder-align="right" :min="6" :max="12" placeholder="登录密码"></x-input>
       <x-input v-model="nick" title="昵称 :" placeholder-align="right" :max="6" placeholder="昵称" ></x-input>
       <x-input v-model="name" title="姓名 :" placeholder-align="right" :max="6" placeholder="姓名" ></x-input>
@@ -34,14 +34,14 @@ export default {
   },
   methods: {
     add: function () {
-      if (this.un.length < 6 || this.un.length > 12 || !/^[A-Za-z0-9]+$/.test(this.un)) {
-        return this.$vux.toast.show({ text: '用户名必须由6-12位字母和数字组成', type: 'warn', width: '9em' })
+      if (this.un.length !== 11 || !/^[0-9]+$/.test(this.un)) {
+        return this.$vux.toast.show({ text: '请输入正确的手机号码', type: 'warn', width: '9em' })
       }
-      if (this.un.length < 6) {
-        return this.$vux.toast.show({ text: '密码必须大于6位数字', type: 'warn', width: '9em' })
+      if (this.pwd.length < 6) {
+        return this.$vux.toast.show({ text: '密码必须大于6位', type: 'warn', width: '9em' })
       }
-      if (!/^[a-zA-Z]\w{5,20}$/.test(this.pwd)) {
-        return this.$vux.toast.show({ text: '密码不能含有汉字', type: 'warn', width: '9em' })
+      if (!/^[A-Za-z0-9]+$/.test(this.pwd)) {
+        return this.$vux.toast.show({ text: '密码只能输入字母和数字', type: 'warn', width: '9em' })
       }
       let params = {
         un: this.un,

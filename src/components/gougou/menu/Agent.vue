@@ -45,7 +45,13 @@ export default {
   },
   methods: {
     add: function () {
-      this.$router.push('/editAgent')
+      this.http_get('/agent/check').then(res => {
+        if (res.code === 0) {
+          this.$router.push('/editAgent')
+        } else {
+          this.$vux.alert.show({content: '旗下用户未达10个', title: '警告'})
+        }
+      })
     },
     init () {
       this.http_get('/agent/list').then(res => {

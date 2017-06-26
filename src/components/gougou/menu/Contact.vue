@@ -1,8 +1,8 @@
 <template>
   <div>
     <group title="个人联系方式">
-      <x-input v-model="nick" title="微信 :" placeholder-align="right" :max="6" placeholder="微信" ></x-input>
-      <x-input v-model="name" title="手机 :" placeholder-align="right" :max="6" placeholder="手机号码" ></x-input>
+      <x-input v-model="wechat" title="微信 :" placeholder-align="right" :max="6" placeholder="微信账户" ></x-input>
+      <!-- <x-input v-model="name" title="手机 :" placeholder-align="right" :max="6" placeholder="手机号码" ></x-input> -->
     </group>
       <Box gap="10px 10px">
       <x-button type="primary"  action-type="button" @click.native="add">保存</x-button>

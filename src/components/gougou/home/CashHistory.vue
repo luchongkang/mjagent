@@ -17,6 +17,7 @@ export default {
   beforeRouteEnter (to, from, next) {
     next((vm) => {
       vm.$store.commit('updateHeaderTitle', {headerTitle: '提现记录'})
+      vm.init()
     })
   },
   name: 'scales',
@@ -31,11 +32,11 @@ export default {
   },
   methods: {
     init () {
-      this.$http.get('/home/cash-list').then((response) => {
-        if (response.body.data.length === 0) {
+      this.http_get('/home/cash-list').then((res) => {
+        if (res.data.length === 0) {
           this.hide = true
         } else {
-          this.list = response.body.data
+          this.list = res.data
         }
       })
     },

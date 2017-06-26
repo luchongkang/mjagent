@@ -62,18 +62,26 @@ export default {
       code: '',
       lists: [{
         title: '提现说明',
-        desc: '1.收入满100元可提现  2.今天的收入明天可申请提现'
+        desc: '1.收入满100元可提现  2.每天只能提交一次提现申请'
       }],
       list: [{key: '1', value: '5元 ／ 张'}, {key: '2', value: '10元 ／ 张'}]
     }
   },
   methods: {
     cash () {
-      this.warn = true
+      this.http_get('/home/cash').then(res => {
+        if (res.code === 1) {
+          this.$vux.toast.show({ text: res.msg, type: 'warn', width: '12em' })
+        } else {
+          this.total = 0
+          this.$vux.toast.show({ text: '提交成功，请等待审核' })
+        }
+      })
     },
     init () {
       this.$http.get('/home/code').then(response => {
         this.code = response.body.data.code
+        this.total = response.body.data.total
       }, error => {
         console.log(error)
         this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
