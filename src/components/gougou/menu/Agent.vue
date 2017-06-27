@@ -3,7 +3,7 @@
     <Box gap="10px 10px">
       <x-button type="primary" action-type="button" @click.native="add">添加下级代理</x-button>
     </Box>
-    <p>我的下级代理  0 人</p>
+    <p>我的用户量  {{ count }} 人</p>
      <table class="tab">
           <thead>
               <tr>
@@ -40,11 +40,17 @@ export default {
   name: 'scales',
   data () {
     return {
+      count: 0,
+      limit: 0,
       list: []
     }
   },
   methods: {
     add: function () {
+      if (this.count < this.limit) {
+        this.$vux.alert.show({content: '旗下用户未达10个', title: '警告'})
+        return false
+      }
       this.http_get('/agent/check').then(res => {
         if (res.code === 0) {
           this.$router.push('/editAgent')
@@ -56,6 +62,8 @@ export default {
     init () {
       this.http_get('/agent/list').then(res => {
         this.list = res.data.list
+        this.count = res.data.count
+        this.limit = res.data.limit
       })
     }
   }

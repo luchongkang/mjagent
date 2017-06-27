@@ -7,9 +7,9 @@
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
         <div class="vux-1px-l vux-1px-r">
-          <span>{{ data.id }}</span>
+          <span>{{ data.total }}</span>
           <br/>
-          代理ID
+          今日收益
         </div>
         <div class="vux-1px-r">
           <span>{{ data.realname }}</span>
@@ -35,6 +35,7 @@
       <cell title="更改密码" is-link link="/updatePwd"></cell>
       <cell title="我邀请的人" is-link link="/inviter"></cell>
       <cell title="我的联系方式" is-link link="/contact"></cell>
+      <cell title="规则说明" is-link link="/rule"></cell>
     </group>
   </div>
 </template>

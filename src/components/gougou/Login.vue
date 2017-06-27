@@ -4,7 +4,7 @@
         <h2>代理后台</h2>
         <div>
         <group> 
-            <x-input title="账 号:" placeholder="请输入代理账号" v-model="name"></x-input>
+            <x-input title="账 号:" placeholder="请输入代理账号" keyboard="number" v-model="name"></x-input>
             <x-input title="密 码:" placeholder="请输入密码" novalidate :type="type"  :show-clear="false"  v-model="pwd">
             <x-icon type="eye-disabled" @click="HidePwd" slot="right" v-bind:class="{ hide: eyeDis}"></x-icon>
             <x-icon type="eye"  @click="ShowPwd" slot="right" v-bind:class="{ hide: eye}"></x-icon>

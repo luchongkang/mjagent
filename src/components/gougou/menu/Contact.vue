@@ -1,7 +1,7 @@
 <template>
   <div>
     <group title="个人联系方式">
-      <x-input v-model="wechat" title="微信 :" placeholder-align="right" :max="6" placeholder="微信账户" ></x-input>
+      <x-input v-model="wechat" title="微信 :" placeholder-align="right" :max="12" placeholder="微信账户" ></x-input>
       <!-- <x-input v-model="name" title="手机 :" placeholder-align="right" :max="6" placeholder="手机号码" ></x-input> -->
     </group>
       <Box gap="10px 10px">
@@ -24,14 +24,17 @@ export default {
   name: 'scales',
   data () {
     return {
-      mobile: '',
       wechat: ''
     }
   },
   methods: {
+    init () {
+      this.http_get('/agent/get-contact').then(res => {
+        this.wechat = res.data.wechat
+      })
+    },
     add: function () {
       let params = {
-        un: this.mobile,
         name: this.wechat
       }
       this.http_post('/agent/contact', params).then(res => {

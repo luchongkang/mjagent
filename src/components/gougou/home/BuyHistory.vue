@@ -24,24 +24,31 @@ export default {
     return {
       hide: false,
       list: [],
+      page: 1,
+      pageCount: 0,
       footer: {
         title: '查看更多'
       }
     }
   },
   methods: {
-    init () {
-      this.$http.get('/home/charge-list').then((response) => {
-        if (response.body.data.length === 0) {
+    init (page = 1) {
+      this.http_get('/home/charge-list?page=' + page).then((res) => {
+        if (res.data.list.length === 0 && page === 1) {
           this.hide = true
         } else {
-          this.list = response.body.data
-          console.log(response.body)
+          this.list.push.apply(this.list, res.data.list)
+          this.pageCount = res.data.pageCount
         }
       })
     },
     getMore () {
-      this.$vux.toast.show({text: '没有更多了'})
+      ++this.page
+      if (this.page <= this.pageCount) {
+        this.init(this.page)
+      } else {
+        this.$vux.toast.show({text: '没有更多了'})
+      }
     }
   }
 }

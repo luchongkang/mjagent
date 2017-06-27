@@ -19,6 +19,7 @@ import Grade from '@/components/gougou/menu/Grade'
 import UpdatePwd from '@/components/gougou/menu/UpdatePwd'
 import Inviter from '@/components/gougou/menu/Inviter'
 import Contact from '@/components/gougou/menu/Contact'
+import Rule from '@/components/gougou/menu/Rule'
 
 Vue.use(Router)
 
@@ -41,6 +42,9 @@ export default new Router({
       component: Index,
       redirect: '/home',
       children: [
+        {
+          path: '/rule', component: Rule
+        },
         {
           path: '/inviter', component: Inviter
         },
