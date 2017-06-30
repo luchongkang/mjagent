@@ -91,12 +91,13 @@ export default {
         this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})
       })
     }
-  },
-  head: {
-    title: {
-      inner: 'Login'
-    }
   }
+  // ,
+  // head: {
+  //   title: {
+  //     inner: 'Login'
+  //   }
+  // }
 }
 </script>
 
