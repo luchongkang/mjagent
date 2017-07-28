@@ -2,10 +2,6 @@
 .main {
   padding-top: 46px;
   padding-bottom: 55px;
-  // @media screen and (max-width:320px) {
-    max-height: 450px;
-    overflow: auto;
-  // }
 }
 .menu-icon {
   fill: green;

@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <divider>公告</divider>
+    <divider>{{data.title}}</divider>
     <marquee>
-      <marquee-item v-for="i in data.affiche" @click.native="alert(i.content)" :key="i.title"  class="align-middle">{{i.title}}</marquee-item>
+      <marquee-item :interval="4000" v-for="i in affiche" @click.native="alert(data.content)" :key="i"  class="align-middle">{{i}}</marquee-item> 
     </marquee>
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
@@ -65,13 +65,27 @@ export default {
       this.http_get('/home').then(res => {
         if (!res) return
         this.data = res.data
+        let len = this.data.content.length
+        let count = 1
+        let start = 0
+        let stop = 20
+        if (len > stop) {
+          count = Math.ceil(this.data.content.length / stop)
+        }
+        while (count > 0) {
+          count--
+          this.affiche.push(this.data.content.substring(start, stop))
+          stop = stop + 20
+          start = start + 20
+        }
       })
     }
   },
   name: 'home',
   data () {
     return {
-      data: []
+      data: [],
+      affiche: []
     }
   }
 }
