@@ -17,7 +17,6 @@ export default {
   beforeRouteEnter (to, from, next) {
     next((vm) => {
       vm.$store.commit('updateHeaderTitle', {headerTitle: '提现记录'})
-      vm.init()
     })
   },
   name: 'scales',
@@ -25,23 +24,31 @@ export default {
     return {
       hide: false,
       list: [],
+      page: 1,
+      pageCount: 0,
       footer: {
         title: '查看更多'
       }
     }
   },
   methods: {
-    init () {
-      this.http_get('/home/cash-list').then((res) => {
+    init ($page = 1) {
+      this.http_get('/home/cash-list?page=' + $page).then((res) => {
         if (res.data.length === 0) {
           this.hide = true
         } else {
-          this.list = res.data
+          this.list.push.apply(this.list, res.data.list)
+          this.pageCount = res.data.pageCount
         }
       })
     },
     getMore () {
-      this.$vux.toast.show({text: '没有更多了'})
+      ++this.page
+      if (this.page <= this.pageCount) {
+        this.init(this.page)
+      } else {
+        this.$vux.toast.show({text: '没有更多了'})
+      }
     }
   }
 }

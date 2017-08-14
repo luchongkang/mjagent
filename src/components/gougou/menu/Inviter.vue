@@ -17,6 +17,7 @@
               </tr>
           </tbody>
       </table>
+      <p class="more" v-bind:class="{hide : isHide}" @click="getMore">查看更多</p>
   </div>
 </template>
 
@@ -34,6 +35,9 @@ export default {
   name: 'scales',
   data () {
     return {
+      isHide: true,
+      page: 1,
+      pageCount: 0,
       list: []
     }
   },
@@ -41,10 +45,25 @@ export default {
     add: function () {
       this.$router.push('/editAgent')
     },
-    init () {
-      this.http_get('/user/list').then(res => {
-        this.list = res.data.list
+    init (page = 1) {
+      this.http_get('/user/list?page=' + page).then(res => {
+        this.list.push.apply(this.list, res.data.list)
+        this.pageCount = res.data.pageCount
+        console.log(this.pageCount)
+        if (this.pageCount === 0 || this.pageCount === 1) {
+          this.isHide = true
+        } else {
+          this.isHide = false
+        }
       })
+    },
+    getMore () {
+      ++this.page
+      if (this.page <= this.pageCount) {
+        this.init(this.page)
+      } else {
+        this.$vux.toast.show({text: '没有更多了'})
+      }
     }
   }
 }
@@ -52,6 +71,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.hide {
+  display: none;
+}
+.more {
+  color: #586C94;
+  font-size: 14px;
+}
 p {
   margin: 10px;
 }
