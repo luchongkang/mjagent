@@ -26,10 +26,12 @@ export default {
   // components: {
   //   Box, XButton
   // },
+  created () {
+    this.init()
+  },
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.$store.commit('updateHeaderTitle', {headerTitle: '我的邀请人'})
-      vm.init()
     })
   },
   name: 'scales',
@@ -49,7 +51,6 @@ export default {
       this.http_get('/user/list?page=' + page).then(res => {
         this.list.push.apply(this.list, res.data.list)
         this.pageCount = res.data.pageCount
-        console.log(this.pageCount)
         if (this.pageCount === 0 || this.pageCount === 1) {
           this.isHide = true
         } else {
