@@ -20,6 +20,7 @@ import UpdatePwd from '@/components/gougou/menu/UpdatePwd'
 import Inviter from '@/components/gougou/menu/Inviter'
 import Contact from '@/components/gougou/menu/Contact'
 import Rule from '@/components/gougou/menu/Rule'
+import Success from '@/components/gougou/home/success'
 
 Vue.use(Router)
 
@@ -36,6 +37,10 @@ export default new Router({
     {
       path: '/check/:mobile/:openid',
       component: Check
+    },
+    {
+      path: '/success',
+      component: Success
     },
     {
       path: '/index',

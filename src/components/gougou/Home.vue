@@ -29,6 +29,7 @@
       </div>
     </card>
     <group title="管理">
+      <cell title="充值" is-link link="/charge"></cell>
       <cell title="提成" is-link link="/scale"></cell>
       <cell title="下级代理" is-link link="/agent"></cell>
       <cell title="邀请码" is-link link="/sell"></cell>

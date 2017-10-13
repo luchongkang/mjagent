@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: 'http://ogucvn7c2.bkt.clouddn.com/',
+    assetsPublicPath: 'http://oxljzt7n1.bkt.clouddn.com/',
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -54,6 +54,13 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {
             '^/user': '/user'
+        }
+      },
+      '/charge': {
+        target: 'http://demo',
+        changeOrigin: true,
+        pathRewrite: {
+            '^/charge': '/charge'
         }
       }
     },

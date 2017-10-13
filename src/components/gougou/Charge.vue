@@ -1,22 +1,25 @@
 <template>
   <div class="charge">
-    <divider>购买房卡</divider>
+    <divider>购买钻石</divider>
     <div class="box">
-    <span>当前剩余房卡: {{number}}</span>
+    <span>当前剩余钻石: {{number}}</span>
     <br>
        <checker v-model="chose" default-item-class="goods-item" selected-item-class="goods-item-selected">
-        <checker-item v-for="(val, i) in data" :key="i" :value="val">
+        <checker-item v-for="(val, i) in data" :key="i" :value="i">
             {{val.title}} <br>
-            <span style="color:#8B8AEE"> {{val.money}} 元</span> <br>
+            <span style="color:#8B8AEE"> {{val.price}} 元</span> <br>
             {{val.desc}}
         </checker-item>
       </checker>
     </div>
     <div class="line"></div>
-    <div style="margin:10px">应付金额: {{chose.money}} 元</div>
+    <div style="margin:10px">应付金额: {{ data[chose]['price'] }} 元</div>
     <box gap="10px 10px" style="margin-top:16px;">
-          <x-button type="primary" action-type="button" @click.native="Buy">立即购买</x-button>
-        </box>
+      <x-button type="primary" action-type="button" @click.native="Buy">立即购买</x-button>
+    </box>
+    <box gap="10px 10px" style="margin-top:16px;">
+      <x-button type="primary" action-type="button" @click.native="history">查看购买记录</x-button>
+    </box>
   </div>
 </template>
 
@@ -29,6 +32,7 @@ export default {
   name: 'charge',
   created () {
     // this.$store.commit('updateHeaderTitle', {headerTitle: '充值'})
+    this.init()
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
@@ -37,21 +41,24 @@ export default {
   },
   methods: {
     Buy: function () {
-      console.log('buy')
+      window.location.href = '/charge/?id=' + this.chose
+      // this.$router.push('/success')
+    },
+    history: function () {
+      this.$router.push('/ChargeHistory')
+    },
+    init () {
+      this.http_get('/home/charge-conf').then(res => {
+        this.data = res.data.list
+        this.number = res.data.card
+      })
     }
   },
   data () {
     return {
-      chose: { 'title': '新手礼包', 'num': 100, 'money': 1, 'id': 1, 'desc': '100张房卡' },
+      chose: 'P001',
       number: 10,
-      data: [
-        { 'title': '新手礼包', 'num': 100, 'money': 1, 'id': 1, 'desc': '100张房卡' },
-        { 'title': '新手礼包', 'num': 1000, 'money': 10, 'id': 2, 'desc': '200张房卡' },
-        { 'title': '新手礼包', 'num': 2000, 'money': 100, 'id': 3, 'desc': '300张房卡' },
-        { 'title': '新手礼包', 'num': 3000, 'money': 200, 'id': 4, 'desc': '400张房卡' },
-        { 'title': '新手礼包', 'num': 5000, 'money': 300, 'id': 5, 'desc': '500张房卡' }
-
-      ]
+      data: { P001: { price: 0 } }
     }
   }
 }

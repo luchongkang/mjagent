@@ -1,29 +1,51 @@
 <template>
   <div class="scale">
-    <divider>暂无相关记录</divider>
+    <divider v-bind:class="{hide: !hide}">暂无相关记录</divider>
+    <panel v-bind:class="{hide:hide}" header="充值记录列表" @on-click-footer="getMore" :footer="footer" :list="list" type="2"></panel>
   </div>
 </template>
 
 <script>
-import { Divider } from 'vux'
-import Helper from '@/common/helper'
+import { Divider, Panel } from 'vux'
 export default {
   components: {
-    Divider
+    Divider, Panel
   },
-  created () {
-    Helper.$emit('changeTitle', '房卡购买记录')
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.init()
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '充值记录'})
+    })
   },
-  name: 'scales',
+  name: 'chargeHistory',
   data () {
     return {
-      number: 0,
-      show: true
+      hide: true,
+      list: [],
+      page: 1,
+      pageCount: 0,
+      footer: {
+        title: '查看更多'
+      }
     }
   },
-  computed: {
-    getHome: function () {
-      return this.msg
+  methods: {
+    init ($page = 1) {
+      this.http_get('/charge/history?page=' + $page).then((res) => {
+        if (res.data.list.length !== 0) {
+          this.hide = false
+          this.list.push.apply(this.list, res.data.list)
+          this.pageCount = res.data.pageCount
+        }
+      })
+    },
+    getMore () {
+      ++this.page
+      if (this.page <= this.pageCount) {
+        this.init(this.page)
+      } else {
+        this.$vux.toast.show({text: '没有更多了'})
+      }
     }
   }
 }
@@ -31,5 +53,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.hide {
+  display: none;
+}
 </style>
