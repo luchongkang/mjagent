@@ -6,25 +6,25 @@
     </marquee>
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
+        <div class="vux-1px-r">
+          <img width="30" height="30" :src="data.image">
+          <br/>
+          {{ data.nick }}
+        </div>
         <div class="vux-1px-l vux-1px-r">
           <span>{{ data.total }}</span>
           <br/>
           今日收益
         </div>
         <div class="vux-1px-r">
-          <span>{{ data.realname }}</span>
+          <span>{{ data.count }}</span>
           <br/>
-          姓名
-        </div>
-        <div class="vux-1px-r">
-          <span>{{ data.name }}</span>
-          <br/>
-          用户名
+          我的代理
         </div>
         <div>
-          <span>{{ data.nick }}</span>
+          <span>{{ data.card }}</span>
           <br/>
-          昵称
+          我的钻石
         </div>
       </div>
     </card>
@@ -32,9 +32,10 @@
       <cell title="充值" is-link link="/charge"></cell>
       <cell title="提成" is-link link="/scale"></cell>
       <cell title="下级代理" is-link link="/agent"></cell>
+      <cell title="我的玩家" is-link link="/inviter"></cell>
       <cell title="邀请码" is-link link="/sell"></cell>
-      <cell title="更改密码" is-link link="/updatePwd"></cell>
-      <cell title="我邀请的人" is-link link="/inviter"></cell>
+      <!-- <cell title="更改密码" is-link link="/updatePwd"></cell> -->
+      
       <cell title="我的联系方式" is-link link="/contact"></cell>
       <cell title="规则说明" is-link link="/rule"></cell>
     </group>

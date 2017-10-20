@@ -22,7 +22,7 @@ export default {
   name: 'scales',
   data () {
     return {
-      hide: false,
+      hide: true,
       list: [],
       page: 1,
       pageCount: 0,
@@ -34,9 +34,8 @@ export default {
   methods: {
     init ($page = 1) {
       this.http_get('/home/cash-list?page=' + $page).then((res) => {
-        if (res.data.length === 0) {
-          this.hide = true
-        } else {
+        if (res.data.list.length !== 0) {
+          this.hide = false
           this.list.push.apply(this.list, res.data.list)
           this.pageCount = res.data.pageCount
         }

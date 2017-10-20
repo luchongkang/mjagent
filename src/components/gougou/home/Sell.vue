@@ -49,6 +49,7 @@ export default {
   beforeRouteEnter (to, from, next) {
     next((vm) => {
       vm.$store.commit('updateHeaderTitle', {headerTitle: '邀请码'})
+      vm.$vux.alert.show({content: '分享朋友圈或者发送此链接给朋友，点击即可绑定玩家', title: '绑定玩家'})
     })
   },
   data () {
@@ -60,6 +61,7 @@ export default {
       error: false,
       warn: false,
       code: '',
+      imgUrl: 'http://beta.gtimg.com/rdmimg/exp/image/4b31b1ff-8c9f-4c0e-8b3f-c85fb4ffac0a.png',
       lists: [{
         title: '提现说明',
         desc: '1.收入满100元可提现  2.每天只能提交一次提现申请'
@@ -80,8 +82,28 @@ export default {
     },
     init () {
       this.$http.get('/home/code').then(response => {
-        this.code = response.body.data.code
-        this.total = response.body.data.total
+        let data = response.body.data
+        this.code = data.code
+        this.total = data.total
+        this.$wechat.config({
+          debug: true,
+          appId: data.appId,
+          timestamp: data.time,
+          nonceStr: data.str,
+          signature: data.sign,
+          jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+        })
+        this.$wechat.onMenuShareTimeline({
+          title: data.title,
+          link: data.url,
+          imgUrl: this.imgUrl
+        })
+        this.$wechat.onMenuShareAppMessage({
+          title: data.title,
+          desc: data.desc,
+          link: data.url,
+          imgUrl: this.imgUrl
+        })
       }, error => {
         console.log(error)
         this.$vux.alert.show({content: '服务超时，请联系客服', title: '错误'})

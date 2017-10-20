@@ -122,7 +122,8 @@ export default {
         this.$http.get('/login/exit').then(response => {
           if (response.body.code === 0) {
             window.sessionStorage.setItem('isLogin', false)
-            this.$router.push('/')
+            // this.$router.push('/')
+            window.location.href = '/login/agent'
           }
         })
       }

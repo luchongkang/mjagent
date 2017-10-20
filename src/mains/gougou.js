@@ -6,7 +6,7 @@ import router from '../router/gougou.js'
 import Vuex from 'vuex'
 import VueHead from 'vue-head'
 import VueResource from 'vue-resource'
-import { LoadingPlugin, AlertPlugin, ToastPlugin } from 'vux'
+import { LoadingPlugin, AlertPlugin, ToastPlugin, WechatPlugin } from 'vux'
 import Common from '../common'
 
 const FastClick = require('fastclick')
@@ -15,6 +15,7 @@ FastClick.attach(document.body)
 Vue.config.productionTip = false
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
+Vue.use(WechatPlugin)
 Vue.use(VueHead)
 Vue.use(LoadingPlugin)
 Vue.use(VueResource)
