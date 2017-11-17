@@ -36,6 +36,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
+      vm.init()
       vm.$store.commit('updateHeaderTitle', {headerTitle: '充值'})
     })
   },

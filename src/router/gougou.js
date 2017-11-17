@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/gougou/Login'
+// import Login from '@/components/gougou/Login'
 import Index from '@/components/gougou/Index'
 import Check from '@/components/gougou/Check'
 import Home from '@/components/gougou/Home'
@@ -21,6 +21,7 @@ import Inviter from '@/components/gougou/menu/Inviter'
 import Contact from '@/components/gougou/menu/Contact'
 import Rule from '@/components/gougou/menu/Rule'
 import Success from '@/components/gougou/home/success'
+import GiveCard from '@/components/gougou/menu/GiveCard'
 
 Vue.use(Router)
 
@@ -28,12 +29,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Login
+      component: Index,
+      redirect: '/home'
     },
-    {
-      path: '/login',
-      component: Login
-    },
+    // {
+    //   path: '/login',
+    //   component: Login
+    // },
     {
       path: '/check/:mobile/:openid',
       component: Check
@@ -47,6 +49,9 @@ export default new Router({
       component: Index,
       redirect: '/home',
       children: [
+        {
+          path: '/givecard', component: GiveCard
+        },
         {
           path: '/rule', component: Rule
         },

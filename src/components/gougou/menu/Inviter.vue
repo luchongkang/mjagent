@@ -1,5 +1,8 @@
 <template>
   <div>
+      <Box gap="10px 10px">
+      <x-button type="primary" action-type="button" @click.native="give">给用户发卡</x-button>
+    </Box>
     <!-- <p>我的下级代理  0 人</p> -->
      <table class="tab">
           <thead>
@@ -22,10 +25,11 @@
 </template>
 
 <script>
+import { Box, XButton } from 'vux'
 export default {
-  // components: {
-  //   Box, XButton
-  // },
+  components: {
+    Box, XButton
+  },
   created () {
     this.init()
   },
@@ -44,8 +48,8 @@ export default {
     }
   },
   methods: {
-    add: function () {
-      this.$router.push('/editAgent')
+    give: function () {
+      this.$router.push('/GiveCard')
     },
     init (page = 1) {
       this.http_get('/user/list?page=' + page).then(res => {

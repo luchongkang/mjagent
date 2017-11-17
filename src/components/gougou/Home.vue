@@ -19,7 +19,7 @@
         <div class="vux-1px-r">
           <span>{{ data.count }}</span>
           <br/>
-          我的代理
+          我的玩家
         </div>
         <div>
           <span>{{ data.card }}</span>
@@ -49,13 +49,13 @@ export default {
     Blur, Card, Group, Cell, Marquee, MarqueeItem, Divider
   },
   created () {
-    if (this.check_login()) {
-      this.init()
-    }
+    // if (this.check_login()) {
+    this.init()
+    // }
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
-      vm.check_login()
+      // vm.check_login()
       vm.$store.commit('updateHeaderTitle', {headerTitle: '主页'})
     })
   },

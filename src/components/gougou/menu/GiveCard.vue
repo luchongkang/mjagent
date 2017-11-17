@@ -1,14 +1,15 @@
 <template>
   <div>
-    <group title="旗下用户的UID">
+    <group title="发放房卡">
     <x-input v-model="uid" title="UID:" required placeholder-align="right"  keyboard="number" placeholder=""></x-input>
+    <x-input v-model="num" title="数量:" required placeholder-align="right"  keyboard="number" placeholder=""></x-input>
        <!-- <x-input v-model="un" title="手机号:" required placeholder-align="right" is-type="china-mobile" keyboard="number" placeholder="登录账户"></x-input>
      <x-input v-model="pwd" title="密码 :" required placeholder-align="right" :min="6" :max="12" placeholder="登录密码"></x-input>
       <x-input v-model="nick" title="昵称 :" placeholder-align="right" :max="6" placeholder="昵称" ></x-input>
       <x-input v-model="name" title="姓名 :" placeholder-align="right" :max="6" placeholder="姓名" ></x-input> -->
     </group>
       <Box gap="10px 10px">
-      <x-button type="primary"  action-type="button" @click.native="add">添加下级代理</x-button>
+      <x-button type="primary"  action-type="button" @click.native="add">发放</x-button>
     </Box>
   </div>
 </template>
@@ -21,13 +22,14 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.$store.commit('updateHeaderTitle', {headerTitle: '新增代理'})
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '给用户发卡'})
     })
   },
   name: 'scales',
   data () {
     return {
-      uid: ''
+      uid: '',
+      num: ''
     }
   },
   methods: {
@@ -35,21 +37,19 @@ export default {
       if (!/^[0-9]+$/.test(this.uid)) {
         return this.$vux.toast.show({ text: '请输入正确的UID', type: 'warn', width: '9em' })
       }
-      // if (this.pwd.length < 6) {
-      //   return this.$vux.toast.show({ text: '密码必须大于6位', type: 'warn', width: '9em' })
-      // }
-      // if (!/^[A-Za-z0-9]+$/.test(this.pwd)) {
-      //   return this.$vux.toast.show({ text: '密码只能输入字母和数字', type: 'warn', width: '9em' })
-      // }
-      let params = {
-        uid: this.uid
+      if (!/^[0-9]+$/.test(this.uid)) {
+        return this.$vux.toast.show({ text: '请输入正确的数量', type: 'warn', width: '9em' })
       }
-      this.http_post('/agent/add', params).then(res => {
+      let params = {
+        uid: this.uid,
+        num: this.num
+      }
+      this.http_post('/agent/givecard', params).then(res => {
         if (res.code === 0) {
-          this.$vux.toast.show({ text: '添加成功' })
-          this.un = ''
+          this.$vux.toast.show({ text: '发放成功' })
+          this.num = ''
         } else {
-          this.$vux.toast.show({ text: res.msg, type: 'warn' })
+          this.$vux.toast.show({ text: res.data, type: 'warn' })
         }
       })
     }

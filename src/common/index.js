@@ -1,19 +1,22 @@
 export default {
   methods: {
-    check_login () {
-      // 检验是否已经登录
-      let login = Boolean(window.sessionStorage.getItem('isLogin'))
-      if (!login) {
-        this.$router.push('/login')
-      }
-      return login
-    },
+    // check_login () {
+    //   // 检验是否已经登录
+    //   let login = Boolean(window.sessionStorage.getItem('isLogin'))
+    //   if (!login) {
+    //     // this.$router.push('/login')
+    //     window.location.href = '/login/agent'
+    //   }
+    //   return login
+    // },
     http_get: function (url) {
       this.$vux.loading.show({ text: 'loading' })
       return this.$http.get(url).then(response => {
         this.$vux.loading.hide()
         if (response.body.code === -1) {
-          return this.$router.push('/login')
+          window.location.href = '/login/agent'
+          return false
+          // return this.$router.push('/login')
         }
         return new Promise((resolve, reject) => {
           resolve(response.body)

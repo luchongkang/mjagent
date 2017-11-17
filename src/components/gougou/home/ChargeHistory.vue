@@ -13,6 +13,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
+      vm.list = []
       vm.init()
       vm.$store.commit('updateHeaderTitle', {headerTitle: '充值记录'})
     })

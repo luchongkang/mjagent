@@ -1,13 +1,12 @@
 <template>
   <div>
-    <Box gap="10px 10px">
+    <!-- <Box gap="10px 10px">
       <x-button type="primary" action-type="button" @click.native="add">添加下级代理</x-button>
-    </Box>
-    <p>我的用户量  {{ count }} 人</p>
+    </Box> -->
+<!--     <p>我的用户量  {{ count }} 人</p> -->
      <table class="tab">
           <thead>
               <tr>
-                  <th>昵 称</th>
                   <th>用户名</th>
                   <th>状 态</th>
                   <th>开通时间</th>
@@ -15,7 +14,6 @@
           </thead>
           <tbody>
               <tr v-for="i in list">
-                <td>{{ i.nick }}</td>
                 <td>{{ i.un }}</td>
                 <td>{{ i.status }}</td>
                 <td>{{ i.time }}</td>
@@ -26,10 +24,10 @@
 </template>
 
 <script>
-import { Box, XButton } from 'vux'
+import { XButton } from 'vux'
 export default {
   components: {
-    Box, XButton
+    XButton
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -62,8 +60,8 @@ export default {
     init () {
       this.http_get('/agent/list').then(res => {
         this.list = res.data.list
-        this.count = res.data.count
-        this.limit = res.data.limit
+        // this.count = res.data.count
+        // this.limit = res.data.limit
       })
     }
   }

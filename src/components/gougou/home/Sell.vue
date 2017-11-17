@@ -86,7 +86,7 @@ export default {
         this.code = data.code
         this.total = data.total
         this.$wechat.config({
-          debug: true,
+          debug: false,
           appId: data.appId,
           timestamp: data.time,
           nonceStr: data.str,
