@@ -71,7 +71,7 @@ export default new Router({
           path: '/charge', component: Charge
         },
         {
-          path: '/scale', component: Scale
+          path: '/scale/:type', component: Scale
         },
         {
           path: '/sell', component: Sell

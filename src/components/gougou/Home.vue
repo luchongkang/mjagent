@@ -30,7 +30,8 @@
     </card>
     <group title="管理">
       <cell title="充值" is-link link="/charge"></cell>
-      <cell title="提成" is-link link="/scale"></cell>
+      <cell title="玩家提成" is-link link="/scale/0"></cell>
+      <cell title="代理提成" is-link link="/scale/1"></cell>
       <cell title="下级代理" is-link link="/agent"></cell>
       <cell title="我的玩家" is-link link="/inviter"></cell>
       <cell title="邀请码" is-link link="/sell"></cell>
@@ -64,6 +65,9 @@ export default {
       this.$vux.alert.show({title: '公告', content: i})
     },
     init () {
+      // this.http_get('/login/login').then(res => {
+      //   console.log(res)
+      // })
       this.http_get('/home').then(res => {
         if (!res) return
         this.data = res.data

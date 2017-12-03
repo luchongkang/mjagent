@@ -20,14 +20,51 @@
               </tr>
           </tbody>
       </table>
+    <p>下级代理关系</p>
+    <ul id="demo">
+      <item
+        class="item"
+        :model="this.treeData">
+      </item>
+    </ul>
   </div>
 </template>
 
 <script>
+var treeData = [{
+  name: 'My Tree',
+  uid: '1231',
+  children: [
+    { name: 'hello' }
+    // { name: 'wat' },
+    // {
+    //   name: 'child folder',
+    //   children: [
+    //     {
+    //       name: 'child folder',
+    //       children: [
+    //         { name: 'hello' },
+    //         { name: 'wat' }
+    //       ]
+    //     },
+    //     { name: 'hello' },
+    //     { name: 'wat' },
+    //     {
+    //       name: 'child folder',
+    //       children: [
+    //         { name: 'hello' },
+    //         { name: 'wat' }
+    //       ]
+    //     }
+    //   ]
+    // }
+  ]
+}]
 import { XButton } from 'vux'
+import item from './item'
 export default {
   components: {
-    XButton
+    XButton, item
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -35,12 +72,13 @@ export default {
       vm.init()
     })
   },
-  name: 'scales',
+  name: 'agent',
   data () {
     return {
       count: 0,
       limit: 0,
-      list: []
+      list: [],
+      treeData: treeData
     }
   },
   methods: {
@@ -60,6 +98,7 @@ export default {
     init () {
       this.http_get('/agent/list').then(res => {
         this.list = res.data.list
+        this.treeData = res.data.tree
         // this.count = res.data.count
         // this.limit = res.data.limit
       })
@@ -70,7 +109,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-p {
+p ,ul {
   margin: 10px;
 }
 table {

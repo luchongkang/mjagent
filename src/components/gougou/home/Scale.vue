@@ -9,13 +9,18 @@
       <div style="padding:15px;">
       <x-button type="primary" @click.native="search">查 询</x-button>
     </div>
+    <div>
       <table class="tab">
           <thead>
               <tr>
-                  <th>购买金额</th>
-                  <th>提成比例</th>
-                  <th>我的收益</th>
-                  <th>代理层级</th>
+                  <th>金额</th>
+                  <th>比例</th>
+                  <th>收益</th>
+                  <th>昵称</th>
+                  <th>UID</th>
+                  <th>时间</th>
+                  <th>层级</th>
+
               </tr>
           </thead>
           <tbody v-for="i in list">
@@ -23,11 +28,16 @@
                 <th>{{ i.price }}</th>
                 <th>{{ i.scale }}</th>
                 <th>{{ i.num }}</th>
-                <th>第 {{ i.level }} 级</th>
+                <th>{{ i.username }}</th>
+                <th>{{ i.uid }}</th>
+                <th nowrap="nowrap">{{ i.time }}</th>
+                <th nowrap="nowrap">第 {{ i.level }} 级</th>
               </tr>
           </tbody>
       </table>
+
       <p class="more" v-bind:class="{hide : isHide}" @click="getMore">查看更多</p>
+      </div>
     </div>
   </div>
 </template>
@@ -53,22 +63,25 @@ export default {
       end: '',
       page: 1,
       pageCount: 0,
-      list: []
+      list: [],
+      type: 0
     }
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
-      vm.$store.commit('updateHeaderTitle', {headerTitle: '我的提成'})
+      console.log(vm.$route.params.type)
+      vm.type = vm.$route.params.type
+      let title = vm.type.toString() === '0' ? '玩家' : '代理'
+      vm.$store.commit('updateHeaderTitle', {headerTitle: title + '提成'})
       vm.init()
     })
   },
   methods: {
     init () {
-      this.http_get('/home/get-rebate').then(res => {
+      this.http_get('/home/get-rebate?type=' + this.type).then(res => {
         this.list = res.data.list
         this.number = res.data.number
         this.pageCount = res.data.pageCount
-        console.log(this.pageCount)
         if (this.pageCount === 0 || this.pageCount === 1) {
           this.isHide = true
         }
@@ -81,7 +94,8 @@ export default {
       this.end = value
     },
     search () {
-      this.http_get('/home/get-rebate?start=' + this.start + '&end=' + this.end + ' 23:59:59').then(res => {
+      let url = '/home/get-rebate?start=' + this.start + '&end=' + this.end + ' 23:59:59' + '&type=' + this.type
+      this.http_get(url).then(res => {
         this.list = res.data.list
         this.number = res.data.number
         this.pageCount = res.data.pageCount
@@ -96,7 +110,8 @@ export default {
     getMore () {
       ++this.page
       if (this.page <= this.pageCount) {
-        this.http_get('/home/get-rebate?start=' + this.start + '&end=' + this.end + ' 23:59:59' + '&page=' + this.page).then(res => {
+        let url = '/home/get-rebate?start=' + this.start + '&end=' + this.end + ' 23:59:59' + '&page=' + this.page + '&type=' + this.type
+        this.http_get(url).then(res => {
           this.list.push.apply(this.list, res.data.list)
           this.number = res.data.number
           this.pageCount = res.data.pageCount
@@ -137,6 +152,7 @@ table {
 }
 table tr {
     background-color: #fff;
+    word-break: keep-all;
     border-top: 1px solid #ccc;
 }
 table th {
@@ -144,4 +160,5 @@ table th {
     border: 1px solid #ddd;
     font-weight: 700;
 }
+table td{word-break: keep-all;white-space:nowrap;}
 </style>
