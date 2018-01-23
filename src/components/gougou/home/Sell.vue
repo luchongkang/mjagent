@@ -8,7 +8,7 @@
     <group>
       <cell title="查看玩家购买记录" is-link link="/buyHistory"></cell>
     </group>
-    <divider>提 现</divider>
+    <!-- <divider>提 现</divider>
      <group>
       <cell title="当前可提现收入">
         <div slot="value">
@@ -24,7 +24,7 @@
     <toast v-model="show" text="复制成功"></toast>
     <toast v-model="error" type="warn" text="复制失败"></toast>
     <toast v-model="warn" type="warn" width="11em" text="不满足提现条件"></toast>
-  </div>
+ -->  </div>
 </template>
 
 <script>

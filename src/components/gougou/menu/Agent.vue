@@ -21,7 +21,7 @@
           </tbody>
       </table>
     <p>下级代理关系</p>
-    <ul id="demo">
+    <ul>
       <item
         class="item"
         :model="this.treeData">
@@ -32,32 +32,10 @@
 
 <script>
 var treeData = [{
-  name: 'My Tree',
-  uid: '1231',
+  name: '',
+  uid: '',
   children: [
-    { name: 'hello' }
-    // { name: 'wat' },
-    // {
-    //   name: 'child folder',
-    //   children: [
-    //     {
-    //       name: 'child folder',
-    //       children: [
-    //         { name: 'hello' },
-    //         { name: 'wat' }
-    //       ]
-    //     },
-    //     { name: 'hello' },
-    //     { name: 'wat' },
-    //     {
-    //       name: 'child folder',
-    //       children: [
-    //         { name: 'hello' },
-    //         { name: 'wat' }
-    //       ]
-    //     }
-    //   ]
-    // }
+    { name: '', uid: '' }
   ]
 }]
 import { XButton } from 'vux'

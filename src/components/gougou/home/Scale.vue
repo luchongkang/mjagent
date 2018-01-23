@@ -1,7 +1,23 @@
 <template>
   <div class="scale">
+    <p>本月收益: {{number}}</p>
+    <!-- <divider>提 现</divider> -->
+     <group>
+      <cell title="当前可提现收入">
+        <div slot="value">
+          <span style="color: green">{{ total}}</span>
+        </div>
+      </cell>
+      <cell title="查看我的提现记录" is-link link="/cashHistory"></cell>
+    </group>
+    <Box gap="10px 10px">
+      <x-button type="primary" action-type="button" @click.native="cash">提现到我的微信钱包</x-button>
+    </Box>
+    <panel header=""  :list="lists" type="2"></panel>
+    <toast v-model="warn" type="warn" width="11em" text="不满足提现条件"></toast>
+
     <div class="box">
-      <p>本月收益: {{number}}</p>
+      
       <group title="按时间查询">
         <datetime v-model="start" @on-change="change" cancelText="取消" confirmText="确定" title="开始时间："></datetime>
         <datetime v-model="end" @on-change="changeEnd" cancelText="取消" confirmText="确定" title="结束时间："></datetime>
@@ -39,11 +55,12 @@
       <p class="more" v-bind:class="{hide : isHide}" @click="getMore">查看更多</p>
       </div>
     </div>
+    
   </div>
 </template>
 
 <script>
-import { Datetime, Group, XButton } from 'vux'
+import { Datetime, Group, Cell, Box, Panel, Divider, XButton, Toast } from 'vux'
 export default {
   created () {
     let date = new Date()
@@ -52,24 +69,29 @@ export default {
     // this.end = (new Date(date.getTime() + (1 * 24 * 60 * 60 * 1000)).toLocaleString()).substring(0, 9).replace(/\//g, '-')
   },
   components: {
-    Datetime, Group, XButton
+    Datetime, Group, Cell, Box, Panel, Divider, XButton, Toast
   },
   name: 'scales',
   data () {
     return {
       isHide: false,
       number: 0,
+      total: 0,
       start: '',
       end: '',
       page: 1,
+      warn: false,
       pageCount: 0,
       list: [],
+      lists: [{
+        title: '提现说明',
+        desc: '1.收入满100元可提现  2.每天只能提交一次提现申请'
+      }],
       type: 0
     }
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
-      console.log(vm.$route.params.type)
       vm.type = vm.$route.params.type
       let title = vm.type.toString() === '0' ? '玩家' : '代理'
       vm.$store.commit('updateHeaderTitle', {headerTitle: title + '提成'})
@@ -77,6 +99,16 @@ export default {
     })
   },
   methods: {
+    cash () {
+      this.http_get('/home/cash').then(res => {
+        if (res.code === 1) {
+          this.$vux.toast.show({ text: res.msg, type: 'warn', width: '12em' })
+        } else {
+          this.total = 0
+          this.$vux.toast.show({ text: '提交成功，请等待审核' })
+        }
+      })
+    },
     init () {
       this.http_get('/home/get-rebate?type=' + this.type).then(res => {
         this.list = res.data.list
