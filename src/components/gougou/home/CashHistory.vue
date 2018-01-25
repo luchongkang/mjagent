@@ -1,5 +1,6 @@
 <template>
   <div class="scale">
+    <p>累计提现: {{total}}</p>
     <divider v-bind:class="{hide: !hide}">暂无相关记录</divider>
     <panel v-bind:class="{hide:hide}" header="提现记录列表" @on-click-footer="getMore" :footer="footer" :list="list" type="2"></panel>
   </div>
@@ -22,6 +23,7 @@ export default {
   name: 'scales',
   data () {
     return {
+      total: 0,
       hide: true,
       list: [],
       page: 1,
@@ -36,6 +38,8 @@ export default {
       this.http_get('/home/cash-list?page=' + $page).then((res) => {
         if (res.data.list.length !== 0) {
           this.hide = false
+          this.total = res.data.total
+          console.log(res.data)
           this.list.push.apply(this.list, res.data.list)
           this.pageCount = res.data.pageCount
         }
@@ -55,6 +59,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+p {
+  margin:1em;
+}
 .hide {
   display: none;
 }

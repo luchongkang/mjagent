@@ -11,16 +11,16 @@
           <br/>
           {{ data.nick }}
         </div>
-        <div class="vux-1px-l vux-1px-r">
+        <div v-if="data.auth === 1" class="vux-1px-l vux-1px-r">
           <span>{{ data.total }}</span>
           <br/>
           今日收益
         </div>
-        <div class="vux-1px-r">
+        <!--  <div class="vux-1px-r">
           <span>{{ data.count }}</span>
           <br/>
           我的玩家
-        </div>
+        </div> -->
         <div>
           <span>{{ data.card }}</span>
           <br/>
@@ -29,16 +29,16 @@
       </div>
     </card>
     <group title="管理">
+      <cell  title="发卡" is-link link="/inviter"></cell>
       <cell title="充值" is-link link="/charge"></cell>
-      <cell title="玩家提成" is-link link="/scale/0"></cell>
-      <cell title="代理提成" is-link link="/scale/1"></cell>
-      <cell title="下级代理" is-link link="/agent"></cell>
-       <!-- <cell title="我的玩家" is-link link="/inviter"></cell>
-      <cell title="邀请码" is-link link="/sell"></cell>
-     <cell title="更改密码" is-link link="/updatePwd"></cell> -->
+      <!-- <cell v-if="data.auth === 1" title="玩家提成" is-link link="/scale/0"></cell> -->
+      <cell v-if="data.auth === 1" title="代理提成" is-link link="/scale/1"></cell>
+      <cell v-if="data.auth === 1"  title="下级代理" is-link link="/agent"></cell>
+      <!-- <cell v-if="data.auth === 1" title="邀请码" is-link link="/sell"></cell> -->
+     <!--  <cell title="更改密码" is-link link="/updatePwd"></cell> -->
       
       <cell title="我的联系方式" is-link link="/contact"></cell>
-      <cell title="规则说明" is-link link="/rule"></cell>
+      <cell v-if="data.auth === 1" title="规则说明" is-link link="/rule"></cell>
     </group>
   </div>
 </template>

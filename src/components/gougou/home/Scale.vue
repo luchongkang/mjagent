@@ -5,7 +5,7 @@
      <group>
       <cell title="当前可提现收入">
         <div slot="value">
-          <span style="color: green">{{ total}}</span>
+          <span style="color: green">{{ total }}</span>
         </div>
       </cell>
       <cell title="查看我的提现记录" is-link link="/cashHistory"></cell>
@@ -113,6 +113,7 @@ export default {
       this.http_get('/home/get-rebate?type=' + this.type).then(res => {
         this.list = res.data.list
         this.number = res.data.number
+        this.total = res.data.total
         this.pageCount = res.data.pageCount
         if (this.pageCount === 0 || this.pageCount === 1) {
           this.isHide = true
