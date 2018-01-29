@@ -79,7 +79,7 @@ $mobile: screen and (max-width:320px);
   margin: 0 1em ;
 }
 .goods-item {
-  margin: 10px 15px;
+  margin: 10px;
   padding: 15px 0;
   width: 140px;
   @media #{$mobile} {
