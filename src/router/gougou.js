@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Login from '@/components/gougou/Login'
+import Login from '@/components/gougou/Login'
 import Index from '@/components/gougou/Index'
 import Check from '@/components/gougou/Check'
 import Home from '@/components/gougou/Home'
@@ -32,10 +32,10 @@ export default new Router({
       component: Index,
       redirect: '/home'
     },
-    // {
-    //   path: '/login',
-    //   component: Login
-    // },
+    {
+      path: '/login',
+      component: Login
+    },
     {
       path: '/check/:mobile/:openid',
       component: Check

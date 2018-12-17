@@ -7,9 +7,9 @@
     <card :header="{title:'我的信息'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
         <div class="vux-1px-r">
-          <img width="30" height="30" :src="data.image">
+          <span>{{ data.nick }}</span>
           <br/>
-          {{ data.nick }}
+          昵称
         </div>
         <div v-if="data.auth === 1" class="vux-1px-l vux-1px-r">
           <span>{{ data.total }}</span>
@@ -24,18 +24,19 @@
         <div>
           <span>{{ data.card }}</span>
           <br/>
-          我的钻石
+          我的房卡
         </div>
       </div>
     </card>
     <group title="管理">
-      <cell  title="发卡" is-link link="/inviter"></cell>
-      <cell title="充值" is-link link="/charge"></cell>
-      <!-- <cell v-if="data.auth === 1" title="玩家提成" is-link link="/scale/0"></cell> -->
+      <cell  title="发卡" is-link link="/GiveCard"></cell>
+      <cell title="发卡记录" is-link link="/BuyHistory"></cell>
+      <cell title="充值记录" is-link link="/ChargeHistory"></cell>
+      <!-- <cell v-if="data.auth === 1" title="玩家提成" is-link link="/scale/0"></cell>
       <cell v-if="data.auth === 1" title="代理提成" is-link link="/scale/1"></cell>
       <cell v-if="data.auth === 1"  title="下级代理" is-link link="/agent"></cell>
-      <!-- <cell v-if="data.auth === 1" title="邀请码" is-link link="/sell"></cell> -->
-     <!--  <cell title="更改密码" is-link link="/updatePwd"></cell> -->
+      <cell v-if="data.auth === 1" title="邀请码" is-link link="/sell"></cell> 
+     <cell title="更改密码" is-link link="/updatePwd"></cell> -->
       
       <cell title="我的联系方式" is-link link="/contact"></cell>
       <cell v-if="data.auth === 1" title="规则说明" is-link link="/rule"></cell>

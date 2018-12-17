@@ -14,8 +14,9 @@ export default {
       return this.$http.get(url).then(response => {
         this.$vux.loading.hide()
         if (response.body.code === -1) {
-          window.location.href = '/login/agent'
-          return false
+          // window.location.href = '/login/agent'
+          return this.$router.push('/login')
+          // return false
           // return this.$router.push('/login')
         }
         return new Promise((resolve, reject) => {

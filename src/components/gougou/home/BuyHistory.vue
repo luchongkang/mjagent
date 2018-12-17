@@ -11,12 +11,13 @@ export default {
   components: {
     Divider, Panel
   },
-  created () {
-    this.init()
-  },
+  // created () {
+  //   this.init()
+  // },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
-      vm.$store.commit('updateHeaderTitle', {headerTitle: '玩家购买记录'})
+      vm.$store.commit('updateHeaderTitle', {headerTitle: '发卡记录'})
+      vm.init()
     })
   },
   name: 'scales',
